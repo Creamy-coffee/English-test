@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>英语阅读理解综合训练系统</title>
     <style>
         :root {
@@ -13,128 +13,139 @@
             --bg: #f4f7f6;
             --card: #ffffff;
             --text: #333;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         body {
-            font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            padding: 20px;
-            padding-right: 240px; /* Space for sidebar */
+            padding: 15px;
+            /* Desktop default padding */
+            padding-right: 240px; 
             line-height: 1.6;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        h1, h2, h3 { color: var(--primary); }
-        h2 { border-left: 5px solid var(--accent); padding-left: 10px; margin-top: 40px; }
+        h1 { font-size: 1.5em; color: var(--primary); text-align: center; margin-bottom: 30px; }
+        h2 { font-size: 1.2em; border-left: 5px solid var(--accent); padding-left: 10px; margin-top: 30px; color: var(--primary); }
 
         .container { max-width: 900px; margin: 0 auto; }
 
         /* Article Styles */
         .passage-section {
             background: var(--card);
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 30px;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .passage-content {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 25px;
         }
 
         .en-text {
             font-family: Georgia, serif;
-            font-size: 1.1em;
-            background: #fdfefe;
+            font-size: 1.05em;
+            background: #fff;
             padding: 15px;
             border-left: 3px solid #bdc3c7;
             line-height: 1.8;
             text-align: justify;
+            margin-bottom: 15px;
         }
 
         .cn-text {
             font-size: 0.95em;
-            color: #555;
-            background: #f0fdf4;
+            color: #444;
+            background: #e8f5e9;
             padding: 15px;
             border-left: 3px solid var(--success);
-            display: none; /* Hidden by default */
-            margin-top: -10px;
-            border-radius: 0 0 5px 5px;
+            display: none;
+            border-radius: 4px;
+            line-height: 1.7;
         }
 
         /* Question Styles */
         .question-block {
-            margin-top: 20px;
-            padding: 15px;
+            margin-top: 25px;
+            padding-bottom: 15px;
             border-bottom: 1px dashed #eee;
         }
 
         .q-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.05em;
         }
 
         .q-trans {
             display: none;
             color: var(--accent);
             font-size: 0.9em;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            padding: 5px 0;
         }
 
-        /* Interactive Quiz Buttons */
+        /* Interactive Buttons */
         .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .option-btn {
             text-align: left;
-            padding: 10px 15px;
+            padding: 12px 15px;
             background: white;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 1em;
             transition: all 0.2s;
-            font-size: 0.95em;
+            position: relative; /* For ripple or icon */
         }
 
-        .option-btn:hover { background: #f0f8ff; border-color: var(--accent); }
+        .option-btn:active { background: #f0f0f0; }
 
         /* Quiz Feedback States */
         .option-btn.correct {
             background-color: #d4edda;
             border-color: var(--success);
             color: #155724;
-            pointer-events: none;
+            font-weight: bold;
         }
+        .option-btn.correct::after {
+            content: "✔";
+            position: absolute;
+            right: 15px;
+            color: var(--success);
+        }
+
         .option-btn.wrong {
             background-color: #f8d7da;
             border-color: var(--error);
             color: #721c24;
-            pointer-events: none;
         }
-        .option-btn.disabled {
-            pointer-events: none;
-            opacity: 0.7;
-        }
-        
-        /* Answer Key (Hidden by default) */
-        .answer-key-display {
-            display: none;
-            margin-top: 5px;
-            font-weight: bold;
+        .option-btn.wrong::after {
+            content: "✖";
+            position: absolute;
+            right: 15px;
             color: var(--error);
         }
 
-        /* Sidebar */
+        .locked .option-btn { pointer-events: none; }
+
+        .answer-key-display {
+            display: none;
+            margin-top: 10px;
+            font-weight: bold;
+            color: var(--error);
+            padding: 5px 10px;
+            background: #fff5f5;
+            border-radius: 4px;
+            border: 1px solid #ffeeba;
+        }
+
+        /* --- Sidebar & Mobile Bottom Bar --- */
         .sidebar {
             position: fixed;
             right: 20px;
@@ -142,22 +153,33 @@
             width: 200px;
             background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            z-index: 100;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            z-index: 900;
+            transition: all 0.3s ease;
         }
+
+        .score-board {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-weight: bold;
+            border: 1px solid #eee;
+        }
+        #score-val { color: var(--accent); font-size: 1.3em; margin-left: 5px; }
 
         .btn {
             display: block;
             width: 100%;
-            padding: 12px;
-            margin-bottom: 10px;
+            padding: 10px;
+            margin-bottom: 8px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            text-align: center;
         }
 
         .btn-toggle { background: #ecf0f1; color: var(--primary); }
@@ -166,84 +188,150 @@
         .btn-download { 
             background: var(--success); 
             color: white; 
-            margin-top: 20px; 
-            box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
+            margin-top: 15px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
         }
-        .btn-download:hover { background: #219150; transform: translateY(-2px); }
 
-        .score-board {
-            text-align: center;
-            margin-bottom: 15px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 5px;
-            font-weight: bold;
+        /* --- Mobile Specific Optimization --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+                padding-bottom: 180px; /* Space for bottom dock */
+                padding-right: 15px;
+            }
+
+            .container { width: 100%; }
+
+            /* Turn Sidebar into Bottom Dock */
+            .sidebar {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                border-radius: 20px 20px 0 0;
+                padding: 15px;
+                box-sizing: border-box;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            }
+
+            .score-board {
+                grid-column: 1 / -1; /* Full width */
+                margin-bottom: 5px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 15px;
+            }
+            
+            .score-board::after {
+                content: "答题统计";
+                font-size: 0.8em;
+                color: #999;
+                font-weight: normal;
+            }
+
+            .btn {
+                margin-bottom: 0;
+                font-size: 13px;
+                padding: 12px 5px; /* Taller touch targets */
+            }
+
+            .btn-download { margin-top: 0; grid-column: 1 / -1; }
+            
+            /* Hide Reset on mobile main view to save space, 
+               or put it next to download. Let's stack download and reset. */
+             .sidebar {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .score-board { grid-column: 1 / -1; }
+            .btn-download { grid-column: 1 / 3; } /* Takes 2/3 width */
+            .btn-reset { grid-column: 3 / 4; background: #e74c3c; color: white; } /* Small reset button */
         }
-        #score-val { color: var(--accent); font-size: 1.2em; }
 
-        /* Export Modal */
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
             z-index: 1000;
             left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.6);
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(3px);
         }
         .modal-content {
             background: white;
-            padding: 30px;
-            border-radius: 8px;
-            width: 300px;
+            padding: 25px;
+            border-radius: 15px;
+            width: 85%; /* Responsive width */
+            max-width: 320px;
             text-align: center;
-        }
-        .checkbox-group { text-align: left; margin: 20px 0; }
-        .checkbox-group label { display: block; margin: 10px 0; cursor: pointer; }
-
-        /* Print/Export specific styles (hidden on screen) */
-        @media print {
-            .sidebar, .modal { display: none; }
-            body { padding: 0; }
-            .cn-text { display: block !important; }
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* State Classes */
-        body.show-trans .cn-text { display: block; }
-        body.show-trans .q-trans { display: block; }
-        body.show-ans .answer-key-display { display: block; }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .checkbox-group { text-align: left; margin: 20px 0; padding: 0 10px; }
+        .checkbox-group label { 
+            display: flex; 
+            align-items: center; 
+            margin: 12px 0; 
+            cursor: pointer; 
+            font-size: 1.05em;
+        }
+        .checkbox-group input { margin-right: 10px; transform: scale(1.2); }
+
+        /* Utility */
+        body.show-trans .cn-text { display: block; animation: fadeIn 0.3s; }
+        body.show-trans .q-trans { display: block; animation: fadeIn 0.3s; }
+        body.show-ans .answer-key-display { display: block; animation: fadeIn 0.3s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     </style>
 </head>
 <body>
 
 <div class="sidebar">
-    <div class="score-board">当前得分: <span id="score-val">0</span></div>
+    <div class="score-board">得分: <span id="score-val">0</span></div>
     
-    <button class="btn btn-toggle" onclick="toggleTrans(this)">显示/隐藏 中文翻译</button>
-    <button class="btn btn-toggle" onclick="toggleAns(this)">显示/隐藏 答案解析</button>
-    <button class="btn btn-toggle" onclick="resetQuiz()">重置答题状态</button>
+    <button class="btn btn-toggle" onclick="toggleTrans(this)">文/题翻译</button>
+    <button class="btn btn-toggle" onclick="toggleAns(this)">显示答案</button>
+    <button class="btn btn-reset" onclick="resetQuiz()" style="background: #95a5a6; color:white;">重置</button>
     
-    <button class="btn btn-download" onclick="openDownloadModal()">📥 导出为 Word</button>
-    <div style="font-size: 12px; color: #999; margin-top: 10px; text-align: center;">Tip: 导出支持选择是否含答案</div>
+    <button class="btn btn-download" style="grid-column: 1 / -1;" onclick="openDownloadModal()">
+        <span>📄 导出 Word 文档</span>
+    </button>
 </div>
 
 <div id="downloadModal" class="modal">
     <div class="modal-content">
-        <h3>导出设置</h3>
+        <h3 style="margin-top:0">📥 导出设置</h3>
+        <p style="font-size:0.9em; color:#666;">请选择导出文档中包含的内容：</p>
         <div class="checkbox-group">
-            <label><input type="checkbox" id="dl-trans" checked> 包含文章与题目翻译</label>
+            <label><input type="checkbox" id="dl-trans" checked> 包含中文翻译</label>
             <label><input type="checkbox" id="dl-ans" checked> 包含正确答案</label>
         </div>
-        <button class="btn btn-download" onclick="generateWord()">确认下载</button>
-        <button class="btn" style="background:#eee; margin-top:10px" onclick="closeModal()">取消</button>
+        <button class="btn btn-download" style="margin-bottom:10px" onclick="generateWord()">确认下载</button>
+        <button class="btn" style="background:#f1f2f6; color:#666;" onclick="closeModal()">取消</button>
     </div>
 </div>
 
 <div class="container" id="main-content">
-    <h1 style="text-align: center; margin-bottom: 40px;">英语阅读理解专项训练</h1>
+    <h1>📝 英语阅读理解综合训练</h1>
 
-    <h2>Unit 1: Honesty & Society (诚信与社会)</h2>
+    <h2>Unit 1: Honesty & Society</h2>
     
     <div class="passage-section">
         <div class="passage-content">
@@ -265,7 +353,7 @@
 
         <div class="question-block" data-ans="C">
             <div class="q-title">2. When do consumers get hurt?</div>
-            <div class="q-trans">2. 消费者何时会受到伤害？</div>
+            <div class="q-trans">2. 消费者什么时候会受到伤害？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) When they buy folk products.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) When they buy cheap products.</button>
@@ -314,8 +402,8 @@
 
     <div class="passage-section">
         <div class="passage-content">
-            <div class="en-text">Passage 2: I believe in people. However much of a mess we seem to make of the world, it is people who have brought about all the progress we know, and I don’t mean just material progress. All have been formulated and expressed by men and women. Even when people make mistakes, it seems to me that they usually make them from right motives. Most of us want to do good. I believe in people because I have seen a great many of them in different parts of the world. I would rather trust my own experience and observation than the cynical remarks of unhappy men. My belief not only has given me a happy life but has made possible any really useful work I have done... (Author recounts living in Spain during 1931 Republic establishment)...</div>
-            <div class="cn-text">【文章翻译】我相信人类。无论我们似乎把世界搞得多么一团糟，正是人类带来了我们所知的一切进步，我指的不仅仅是物质进步。所有的进步都是由男人和女人构想和表达出来的。即使人们犯错，在我看来，他们通常也是出于正确的动机。我们大多数人都想做好事。我相信人类，因为我在世界各地见过很多人。我宁愿相信我自己的经验和观察，也不愿相信那些不快乐的人的愤世嫉俗的言论。我的信念不仅给了我幸福的生活，也使我所做的任何真正有用的工作成为可能...（作者随后讲述了1931年生活在西班牙目睹共和国成立的经历，那是一场不流血的革命，即使后来发生了残酷的反革命，也不能改变那段进步时期人们温和宽容的事实）。</div>
+            <div class="en-text">Passage 2: I believe in people. However much of a mess we seem to make of the world, it is people who have brought about all the progress we know, and I don’t mean just material progress. All have been formulated and expressed by men and women. Even when people make mistakes, it seems to me that they usually make them from right motives. Most of us want to do good. I believe in people because I have seen a great many of them in different parts of the world. I would rather trust my own experience and observation than the cynical remarks of unhappy men. My belief not only has given me a happy life but has made possible any really useful work I have done...</div>
+            <div class="cn-text">【文章翻译】我相信人类。无论我们似乎把世界搞得多么一团糟，正是人类带来了我们所知的一切进步，我指的不仅仅是物质进步。所有的进步都是由男人和女人构想和表达出来的。即使人们犯错，在我看来，他们通常也是出于正确的动机。我们大多数人都想做好事。我相信人类，因为我在世界各地见过很多人。我宁愿相信我自己的经验和观察，也不愿相信那些不快乐的人的愤世嫉俗的言论。我的信念不仅给了我幸福的生活，也使我所做的任何真正有用的工作成为可能...</div>
         </div>
 
         <div class="question-block" data-ans="A">
@@ -344,7 +432,7 @@
 
         <div class="question-block" data-ans="B">
             <div class="q-title">8. What is the author?</div>
-            <div class="q-trans">8. 作者是做什么的？</div>
+            <div class="q-trans">8. 作者的职业是什么？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) Newspaperman and photographer.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) Newspaperman and biographer.</button>
@@ -353,7 +441,8 @@
             </div>
             <div class="answer-key-display">正确答案: B</div>
         </div>
-         <div class="question-block" data-ans="A">
+        
+        <div class="question-block" data-ans="A">
             <div class="q-title">9. Where did the author live in 1931?</div>
             <div class="q-trans">9. 1931年作者住在哪里？</div>
             <div class="options-grid">
@@ -364,7 +453,8 @@
             </div>
             <div class="answer-key-display">正确答案: A</div>
         </div>
-         <div class="question-block" data-ans="C">
+
+        <div class="question-block" data-ans="C">
             <div class="q-title">10. The name of the new republican anthem is "______".</div>
             <div class="q-trans">10. 新共和国国歌的名字是“______”。</div>
             <div class="options-grid">
@@ -377,12 +467,12 @@
         </div>
     </div>
 
-    <h2>Unit 2: Education Systems (教育体系)</h2>
+    <h2>Unit 2: Education Systems</h2>
 
     <div class="passage-section">
         <div class="passage-content">
-            <div class="en-text">Passage 1: In Ontario, the high school diploma is known as the Ontario Secondary School Diploma... (Details about credits in Ontario, Saskatchewan, California, North Carolina, and Texas)... To earn a high school diploma, Saskatchewan students are required to earn a total of 24 credits... In California, students are required to take and successfully complete... In North Carolina, high school students are required to obtain 24 credits... In Texas, there are three programs offered for graduation...</div>
-            <div class="cn-text">【文章翻译】(本文详细介绍了北美不同地区的教育文凭要求) 在安大略省，中学文凭被称为安大略中学毕业文凭(OSSD)，要求完成规定课程、社区服务和读写测试。萨斯喀彻温省的学生从10到12年级需要获得总共24个学分。加利福尼亚州的学生必须完成特定的英语、数学、历史等课程要求，且以前需要通过高中毕业考试（2018年前暂停）。在北卡罗来纳州，学生需要24个学分，包括特定的英语、数学、科学和社会研究学分。在德克萨斯州，提供三种毕业课程计划：最低、推荐和高级（杰出）高中课程，且必须通过STAAR考试。</div>
+            <div class="en-text">Passage 1: In Ontario, the high school diploma is known as the Ontario Secondary School Diploma... (Details about credits in Ontario, Saskatchewan, California, North Carolina, and Texas)...</div>
+            <div class="cn-text">【文章翻译】(本文详细介绍了北美不同地区的教育文凭要求) 在安大略省，中学文凭被称为安大略中学毕业文凭(OSSD)，要求完成规定课程、社区服务和读写测试。萨斯喀彻温省的学生从10到12年级需要获得总共24个学分。加利福尼亚州的学生必须完成特定的英语、数学、历史等课程要求。在北卡罗来纳州，学生需要24个学分。在德克萨斯州，提供三种毕业课程计划：最低、推荐和高级（杰出）高中课程，且必须通过STAAR考试。</div>
         </div>
 
         <div class="question-block" data-ans="D">
@@ -408,7 +498,7 @@
             </div>
             <div class="answer-key-display">正确答案: A</div>
         </div>
-
+        
         <div class="question-block" data-ans="B">
             <div class="q-title">3. When is the California High School Exit Examination first administered?</div>
             <div class="q-trans">3. 加州高中毕业考试通常何时首次进行？</div>
@@ -448,10 +538,10 @@
 
     <div class="passage-section">
         <div class="passage-content">
-            <div class="en-text">Passage 2: The General Education Development (GED) credential is offered as an alternative qualification for those who do not successfully earn a high school diploma... IB (International Baccalaureate) world schools may offer the IB Diploma... International schools following the British curriculum... offer the IGCSE qualification...</div>
-            <div class="cn-text">【文章翻译】通用教育发展(GED)证书是为那些没有成功获得高中文凭的人提供的替代资格。通过五门科目的考试即可获得。IB（国际文凭）学校提供IB文凭，课程严谨，包括六个学科组和核心课程（论文、知识论、CAS），被国际广泛认可。遵循英国课程的国际学校提供IGCSE（国际中学教育普通证书），相当于英国的GCSE。通常学生修读5-10门课。IGCSE通常在11年级授予，之后学生学习A-Level课程。剑桥AICE文凭则结合了AS和A Level科目。</div>
+            <div class="en-text">Passage 2: The General Education Development (GED) credential is offered as an alternative qualification... IB (International Baccalaureate)... International schools following the British curriculum...</div>
+            <div class="cn-text">【文章翻译】GED证书是为未获得高中文凭者提供的替代资格。IB文凭课程严谨，受国际认可，包括六个学科组。遵循英国课程的国际学校提供IGCSE，相当于英国GCSE。剑桥AICE文凭则结合了AS和A Level科目。</div>
         </div>
-        
+
         <div class="question-block" data-ans="C">
             <div class="q-title">6. Whom is the GED offered for?</div>
             <div class="q-trans">6. GED是为谁提供的？</div>
@@ -475,8 +565,8 @@
             </div>
             <div class="answer-key-display">正确答案: A</div>
         </div>
-
-        <div class="question-block" data-ans="B">
+        
+         <div class="question-block" data-ans="B">
             <div class="q-title">8. What is the IGCSE the international counterpart to?</div>
             <div class="q-trans">8. IGCSE对应的国际课程是什么？</div>
             <div class="options-grid">
@@ -499,8 +589,8 @@
             </div>
             <div class="answer-key-display">正确答案: C</div>
         </div>
-
-        <div class="question-block" data-ans="B">
+        
+         <div class="question-block" data-ans="B">
             <div class="q-title">10. ______ must be earned to achieve the Cambridge AICE Diploma.</div>
             <div class="q-trans">10. 必须获得_____才能获得剑桥AICE文凭。</div>
             <div class="options-grid">
@@ -513,16 +603,17 @@
         </div>
     </div>
 
-    <h2>Unit 3: Helpfulness & Psychology (助人行为)</h2>
+    <h2>Unit 3: Helpfulness & Psychology</h2>
 
     <div class="passage-section">
         <div class="passage-content">
-            <div class="en-text">Passage 1: Circumstances that inhibit or enhance helpfulness include the number of bystanders, helping when someone else does, time pressure, similarity and clarity. The bystander effect states that victims are less likely to get help when many people are around... People leisurely on their way... usually stop to help, but those late... seldom do...</div>
-            <div class="cn-text">【文章翻译】抑制或增强助人行为的环境因素包括旁观者的数量、是否有人带头帮助、时间压力、相似性和清晰度。旁观者效应指出，周围人多时受害者获救可能性降低。如果看到有人示范助人行为，人们更有可能去帮助。悠闲的人通常会停下来帮忙，而迟到的人很少这样做。人们对与自己相似（穿着、种族、信仰）的人更有同理心。当问题清晰时，人们最乐于助人。积极情绪高、同理心强和自我效能感强的人最可能提供帮助。</div>
+            <div class="en-text">Passage 1: Circumstances that inhibit or enhance helpfulness include the number of bystanders, helping when someone else does, time pressure, similarity and clarity. The bystander effect states that victims are less likely to get help when many people are around...</div>
+            <div class="cn-text">【文章翻译】抑制或增强助人行为的因素包括旁观者数量、榜样作用、时间压力、相似性和清晰度。旁观者效应指出，周围人多时受害者获救可能性降低。悠闲的人常停下帮忙，迟到者则很少。人们对与自己相似的人更有同理心。问题清晰时最乐于助人。</div>
         </div>
-        
+
         <div class="question-block" data-ans="C">
             <div class="q-title">1. Which is included in circumstances that inhibit/enhance helpfulness?</div>
+            <div class="q-trans">1. 下列哪项包含在影响助人行为的因素中？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) Uncertainty and similarity.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) Reality and clarity.</button>
@@ -532,8 +623,9 @@
             <div class="answer-key-display">正确答案: C</div>
         </div>
         
-        <div class="question-block" data-ans="A">
+         <div class="question-block" data-ans="A">
             <div class="q-title">2. When are victims less likely to get help (Bystander effect)?</div>
+            <div class="q-trans">2. 旁观者效应下，何时受害者最难获救？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) When many people are around.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) When some people are around.</button>
@@ -545,6 +637,7 @@
 
         <div class="question-block" data-ans="D">
             <div class="q-title">3. Who usually stop to help others?</div>
+            <div class="q-trans">3. 谁通常会停下来帮助别人？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) Those late for a conference.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) Those catching a plane.</button>
@@ -553,9 +646,10 @@
             </div>
             <div class="answer-key-display">正确答案: D</div>
         </div>
-
+        
         <div class="question-block" data-ans="C">
             <div class="q-title">4. When are people most helpful?</div>
+             <div class="q-trans">4. 人们什么时候最乐于助人？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) When knowing the solution.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) When unclear about solution.</button>
@@ -567,6 +661,7 @@
 
         <div class="question-block" data-ans="B">
             <div class="q-title">5. People of high positive emotionality are likely to be?</div>
+             <div class="q-trans">5. 积极情绪高的人可能是？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) concerned and helpless</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) concerned and helpful</button>
@@ -579,12 +674,13 @@
 
     <div class="passage-section">
         <div class="passage-content">
-            <div class="en-text">Passage 2: Researches done by social scientists have suggested that the following factors can help to increase the willingness to help: Reducing ambiguity and increasing responsibility... Guilt and concern for self-image... Teaching moral inclusion... Modeling altruism...</div>
-            <div class="cn-text">【文章翻译】社会科学家的研究表明，以下因素可增加助人意愿：减少模糊性和增加责任感（个人请求比大众呼吁更有效）；利用内疚感和自我形象关注（犯错后被指责的人更可能补救，或者先拒绝大请求后同意小请求）；教授道德包容（扩大我们关心的群体范围）；树立利他主义榜样（不要宣传逃税等坏事，而要强调诚实等规范）。</div>
+            <div class="en-text">Passage 2: Researches done by social scientists have suggested that the following factors can help to increase the willingness to help: Reducing ambiguity and increasing responsibility... Guilt and concern for self-image...</div>
+            <div class="cn-text">【文章翻译】社会科学家的研究表明，以下因素可增加助人意愿：减少模糊性和增加责任感；利用内疚感和自我形象关注；教授道德包容；树立利他主义榜样（不要宣传逃税等坏事，而要强调诚实等规范）。</div>
         </div>
 
         <div class="question-block" data-ans="C">
             <div class="q-title">6. Who did researches on factors increasing willingness to help?</div>
+            <div class="q-trans">6. 谁研究了增加助人意愿的因素？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) Medical scientists.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) Mathematical scientists.</button>
@@ -593,9 +689,10 @@
             </div>
             <div class="answer-key-display">正确答案: C</div>
         </div>
-
+        
         <div class="question-block" data-ans="D">
             <div class="q-title">7. What can be effective when personalized?</div>
+            <div class="q-trans">7. 个性化时什么有效？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) Verbal image.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) Nonverbal image.</button>
@@ -607,6 +704,7 @@
         
         <div class="question-block" data-ans="A">
             <div class="q-title">8. What can also increase people's helpful contributions?</div>
+             <div class="q-trans">8. 什么也能增加人们的有益贡献？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) Labeling them as helpful.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) Labeling them as useful.</button>
@@ -618,6 +716,7 @@
 
         <div class="question-block" data-ans="C">
             <div class="q-title">9. The author suggests inviting advantaged people to put themselves ______?</div>
+             <div class="q-trans">9. 作者建议优势人群将自己置于______？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) in others' clothes</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) in their own clothes</button>
@@ -629,6 +728,7 @@
 
         <div class="question-block" data-ans="B">
             <div class="q-title">10. When did European Christians risk lives to rescue Jews?</div>
+             <div class="q-trans">10. 欧洲基督徒何时营救犹太人？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) 1930s-1940s</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) 1930s-1950s</button>
@@ -638,17 +738,18 @@
             <div class="answer-key-display">正确答案: B</div>
         </div>
     </div>
-    
-     <h2>Unit 4: The Titanic (泰坦尼克号)</h2>
+
+    <h2>Unit 4: The Titanic</h2>
 
     <div class="passage-section">
         <div class="passage-content">
-            <div class="en-text">Passage 1: After leaving Southampton on April 10, 1912... On April 14... she hit an iceberg... The disaster was met with worldwide shock... Public inquiries led to SOLAS establishment... The wreck was discovered in 1985...</div>
-            <div class="cn-text">【文章翻译】泰坦尼克号于1912年4月10日离开南安普敦，4月14日晚11:40撞上冰山。撞击导致右舷船体向内弯曲，5个水密舱进水（只能承受4个进水）。由于“妇女儿童优先”原则，大量男性被留在船上。次日凌晨2:20船体断裂沉没。灾难引发了全球震惊，英美两国的公开调查促成了国际海上人命安全公约（SOLAS）的建立。1985年残骸被发现。最后一位幸存者Millvina Dean于2009年去世。</div>
+            <div class="en-text">Passage 1: After leaving Southampton on April 10, 1912... On April 14... she hit an iceberg... The disaster was met with worldwide shock... Public inquiries led to SOLAS establishment...</div>
+            <div class="cn-text">【文章翻译】泰坦尼克号于1912年4月10日出发，4月14日撞上冰山。撞击导致5个水密舱进水。大量男性因“妇女儿童优先”原则被留在船上。次日凌晨沉没。灾难促成了SOLAS公约建立。1985年发现残骸。</div>
         </div>
 
         <div class="question-block" data-ans="C">
             <div class="q-title">1. When did the Titanic hit an iceberg?</div>
+            <div class="q-trans">1. 泰坦尼克号何时撞冰山？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) On April 10, 1912.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) On April 12, 1912.</button>
@@ -657,9 +758,10 @@
             </div>
             <div class="answer-key-display">正确答案: C</div>
         </div>
-
-        <div class="question-block" data-ans="A">
+        
+         <div class="question-block" data-ans="A">
             <div class="q-title">2. How many survivors did RMS Carpathia bring aboard?</div>
+            <div class="q-trans">2. Carpathia号救了多少幸存者？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) About 705 survivors.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) About 375 survivors.</button>
@@ -671,6 +773,7 @@
 
         <div class="question-block" data-ans="C">
             <div class="q-title">3. When was SOLAS established?</div>
+            <div class="q-trans">3. SOLAS何时建立？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) In 1985.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) In 1912.</button>
@@ -679,9 +782,10 @@
             </div>
             <div class="answer-key-display">正确答案: C</div>
         </div>
-        
+
         <div class="question-block" data-ans="D">
             <div class="q-title">4. Where have thousands of artefacts been displayed?</div>
+            <div class="q-trans">4. 文物在哪里展出？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) U.S. museums</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) UK museums</button>
@@ -690,9 +794,10 @@
             </div>
             <div class="answer-key-display">正确答案: D</div>
         </div>
-
-        <div class="question-block" data-ans="B">
+        
+         <div class="question-block" data-ans="B">
             <div class="q-title">5. ______ was the final survivor of the Titanic sinking.</div>
+            <div class="q-trans">5. 谁是最后的幸存者？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) Edward Smith</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) Millvina Dean</button>
@@ -702,15 +807,16 @@
             <div class="answer-key-display">正确答案: B</div>
         </div>
     </div>
-    
+
     <div class="passage-section">
         <div class="passage-content">
-            <div class="en-text">Passage 2: Investigations were planned... U.S. Senate inquiry began April 19, 1912... British inquiry headed by Lord Mersey... Both reached similar conclusions: bad regulations, ignored ice warnings, high speed... Recommendations included more lifeboats, 24h wireless watch, International Ice Patrol...</div>
-            <div class="cn-text">【文章翻译】幸存者抵达前调查就已计划好。美国参议院调查于1912年4月19日开始，由威廉·奥尔登·史密斯主持，他受到英国媒体的抨击但坚持调查。英国贸易委员会的调查由默西勋爵领导。两项调查结论相似：救生艇规定过时、船长忽视冰情警告、船速过快。建议包括增加救生艇、全天候无线电值守、建立国际冰情巡逻队等。</div>
+            <div class="en-text">Passage 2: Investigations were planned... U.S. Senate inquiry began April 19, 1912... British inquiry headed by Lord Mersey... Recommendations included more lifeboats, 24h wireless watch, International Ice Patrol...</div>
+            <div class="cn-text">【文章翻译】美英两国进行调查。美方调查始于1912年4月19日。英方由默西勋爵领导。结论相似：救生艇不足、忽视冰情、船速过快。建议增加救生艇、全天候无线电值守、建立国际冰情巡逻队。</div>
         </div>
 
         <div class="question-block" data-ans="C">
             <div class="q-title">6. Where were inquiries carried out?</div>
+            <div class="q-trans">6. 调查在哪里进行？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) In the U.S.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) In the UK.</button>
@@ -719,9 +825,10 @@
             </div>
             <div class="answer-key-display">正确答案: C</div>
         </div>
-
+        
         <div class="question-block" data-ans="D">
             <div class="q-title">7. When did the U.S. Senate's inquiry begin?</div>
+            <div class="q-trans">7. 美国参议院调查何时开始？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) May 2, 1912.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) July 3, 1912.</button>
@@ -733,6 +840,7 @@
 
         <div class="question-block" data-ans="B">
             <div class="q-title">8. Who headed the British Board of Trade's inquiry?</div>
+            <div class="q-trans">8. 谁领导了英国的调查？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) Guglielmo Marconi.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) Lord Mersey.</button>
@@ -741,9 +849,10 @@
             </div>
             <div class="answer-key-display">正确答案: B</div>
         </div>
-
+        
         <div class="question-block" data-ans="C">
             <div class="q-title">9. What was an International Ice Patrol set up for?</div>
+            <div class="q-trans">9. 国际冰情巡逻队因何建立？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) Eliminating icebergs (N. Atlantic).</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) Eliminating icebergs (S. Atlantic).</button>
@@ -755,6 +864,7 @@
 
         <div class="question-block" data-ans="A">
             <div class="q-title">10. Marconi gave evidence about _______.</div>
+            <div class="q-trans">10. Marconi提供了关于_____的证据。</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) the telegraphy</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) the constant service</button>
@@ -764,17 +874,18 @@
             <div class="answer-key-display">正确答案: A</div>
         </div>
     </div>
-    
-    <h2>Unit 5: Perception & Listening (感知与倾听)</h2>
-    
+
+    <h2>Unit 5: Perception & Listening</h2>
+
     <div class="passage-section">
         <div class="passage-content">
-            <div class="en-text">Passage 1: Ask three people to look out the same window... one may say he sees a policeman... another a traffic jam... Perceiving goes on in our minds. Perception is our minds' interpretation of what our senses tell us. Many psychologists today are working to try to determine just how a person experiences or perceives the world...</div>
-            <div class="cn-text">【文章翻译】让三个人看同一扇窗外，他们会看到不同的东西。感知发生在我们的大脑中。一个人可能看到警察开罚单，另一个人看到交通堵塞。感知是我们的思维对感官（如眼睛）告诉我们的信息的解释。许多心理学家正在通过科学实验研究人们如何感知世界。</div>
+            <div class="en-text">Passage 1: Ask three people to look out the same window... Perception is our minds' interpretation of what our senses tell us...</div>
+            <div class="cn-text">【文章翻译】让三人看窗外，结果各异。感知发生在大脑中，是思维对感官信息的解释。心理学家正研究人们如何感知世界。</div>
         </div>
-        
+
         <div class="question-block" data-ans="B">
             <div class="q-title">1. Seeing and perceiving are ______.</div>
+            <div class="q-trans">1. 看见和感知是______。</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) the same action</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) two separate actions</button>
@@ -783,9 +894,10 @@
             </div>
             <div class="answer-key-display">正确答案: B</div>
         </div>
-        
+
         <div class="question-block" data-ans="D">
             <div class="q-title">2. Perceiving is an action that takes place ______.</div>
+            <div class="q-trans">2. 感知发生在______。</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) in our eyes</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) only when thinking hard</button>
@@ -795,8 +907,9 @@
             <div class="answer-key-display">正确答案: D</div>
         </div>
         
-        <div class="question-block" data-ans="D">
+         <div class="question-block" data-ans="D">
             <div class="q-title">3. Perception involves what ______.</div>
+            <div class="q-trans">3. 感知涉及______。</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) our senses tell us</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) our minds interpret</button>
@@ -805,9 +918,10 @@
             </div>
             <div class="answer-key-display">正确答案: D</div>
         </div>
-        
+
         <div class="question-block" data-ans="C">
             <div class="q-title">4. Which is implied but not stated?</div>
+            <div class="q-trans">4. 哪项是暗示但未明说的？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) Psychologists don't know how people see.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) Best experiments control all factors.</button>
@@ -816,9 +930,10 @@
             </div>
             <div class="answer-key-display">正确答案: C</div>
         </div>
-        
+
         <div class="question-block" data-ans="B">
             <div class="q-title">5. Best title for this passage?</div>
+            <div class="q-trans">5. 最佳标题？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) How We See</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) How People Perceive</button>
@@ -829,14 +944,15 @@
         </div>
     </div>
     
-    <div class="passage-section">
+     <div class="passage-section">
         <div class="passage-content">
-            <div class="en-text">Passage 2: What is a good listener?... In fact, there are a variety of ways to listen... Human beings are complex and concealing... To keep the seesaw going in conversations... we need to understand different ways of listening...</div>
-            <div class="cn-text">【文章翻译】什么是好的倾听者？其实倾听有多种方式。人类是复杂且善于隐藏的。有时我们说的话并非本意，或者身体语言比语言更诚实。为了保持对话和关系中的“跷跷板”平衡，我们需要懂得不同的倾听方式。如果我们知道如何以不同方式倾听，就能准确捕捉信息。大多数人只用耳朵听，太少人用该用心去听。</div>
+            <div class="en-text">Passage 2: What is a good listener?... In fact, there are a variety of ways to listen... To keep the seesaw going in conversations... Most people listen only with their ears...</div>
+            <div class="cn-text">【文章翻译】什么是好听众？倾听有多种方式。为了保持对话平衡，需懂不同倾听方式。多数人只用耳朵听，少有人用心听。</div>
         </div>
 
         <div class="question-block" data-ans="A">
             <div class="q-title">6. Listening only with ears may happen when ______.</div>
+            <div class="q-trans">6. 何时可能只用耳朵听？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) we are emotionally tired</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) we are physically disabled</button>
@@ -845,9 +961,10 @@
             </div>
             <div class="answer-key-display">正确答案: A</div>
         </div>
-        
+
         <div class="question-block" data-ans="A">
             <div class="q-title">7. Which is NOT true about a good listener?</div>
+            <div class="q-trans">7. 关于好听众，哪项不真实？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) He can feel what the speaker thinks.</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) He can share speaker's feelings.</button>
@@ -859,6 +976,7 @@
 
         <div class="question-block" data-ans="D">
             <div class="q-title">8. The purpose of the second paragraph is to ______.</div>
+            <div class="q-trans">8. 第二段的目的是？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) demonstrate why we aren't honest</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) explain how body talks</button>
@@ -870,6 +988,7 @@
 
         <div class="question-block" data-ans="A">
             <div class="q-title">9. "Seesaw" probably means "______".</div>
+            <div class="q-trans">9. "Seesaw"的意思是？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) communication</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) purpose</button>
@@ -881,6 +1000,7 @@
 
         <div class="question-block" data-ans="A">
             <div class="q-title">10. Failure to respond properly is probably because ______.</div>
+            <div class="q-trans">10. 未能适当回应可能是因为？</div>
             <div class="options-grid">
                 <button class="option-btn" onclick="check(this, 'A')">A) we misunderstand what he says</button>
                 <button class="option-btn" onclick="check(this, 'B')">B) we don't like the speaker</button>
@@ -909,9 +1029,9 @@
         // Apply styles
         const buttons = parent.querySelectorAll('.option-btn');
         buttons.forEach(b => {
-            b.classList.add('disabled');
+            // Check if this button is the correct one to mark it green always
             if(b.textContent.trim().startsWith(correctAns)) {
-                b.classList.add('correct'); // Always highlight correct one green
+                b.classList.add('correct'); 
             }
         });
 
@@ -919,7 +1039,7 @@
             score++;
             updateScore();
         } else {
-            btn.classList.add('wrong'); // Highlight clicked one red if wrong
+            btn.classList.add('wrong'); // Mark red if wrong
         }
     }
 
@@ -934,7 +1054,7 @@
         document.querySelectorAll('.options-grid').forEach(grid => {
             grid.classList.remove('locked');
             grid.querySelectorAll('.option-btn').forEach(btn => {
-                btn.classList.remove('disabled', 'correct', 'wrong');
+                btn.classList.remove('correct', 'wrong');
             });
         });
     }
@@ -954,6 +1074,13 @@
     function openDownloadModal() { modal.style.display = 'flex'; }
     function closeModal() { modal.style.display = 'none'; }
     
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+    
     // Word Export Logic
     function generateWord() {
         const includeTrans = document.getElementById('dl-trans').checked;
@@ -967,14 +1094,12 @@
         if (!includeTrans) {
             content.querySelectorAll('.cn-text, .q-trans').forEach(el => el.remove());
         } else {
-            // Force display for export
             content.querySelectorAll('.cn-text, .q-trans').forEach(el => el.style.display = 'block');
         }
 
         // 2. Handle Answers
         if (!includeAns) {
             content.querySelectorAll('.answer-key-display').forEach(el => el.remove());
-            // Remove data-ans attributes to prevent cheating in source code of word doc
             content.querySelectorAll('.question-block').forEach(el => el.removeAttribute('data-ans'));
         } else {
             content.querySelectorAll('.answer-key-display').forEach(el => el.style.display = 'block');
