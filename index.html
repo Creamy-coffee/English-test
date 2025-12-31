@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>英语全能题库 (修正版)</title>
+    <title>英语全能题库 (终极修正版)</title>
     <style>
         :root {
             --primary: #2c3e50;
             --accent: #3498db;
             --success: #27ae60;
-            --warning: #f39c12;
+            --warning: #f1c40f;
             --error: #e74c3c;
-            --bg: #f0f2f5;
+            --bg: #f4f6f8;
             --card: #ffffff;
-            --text: #34495e;
+            --text: #2c3e50;
         }
 
         body {
@@ -32,24 +32,24 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             padding: 5px 0;
         }
 
         .nav-tabs {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             padding: 0 10px;
         }
 
         .tab-btn {
             flex: 1;
-            max-width: 120px;
+            max-width: 150px;
             text-align: center;
             padding: 12px 0;
             font-size: 15px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             color: #95a5a6;
             border-bottom: 3px solid transparent;
@@ -60,8 +60,8 @@
         .tab-btn.active {
             color: var(--accent);
             border-bottom-color: var(--accent);
-            background-color: #f4fcfd;
-            border-radius: 8px 8px 0 0;
+            background-color: #f8fcfd;
+            border-radius: 5px 5px 0 0;
         }
 
         /* 内容区域 */
@@ -72,46 +72,44 @@
         }
 
         .unit-block {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .unit-title {
             font-size: 18px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--primary);
-            border-left: 6px solid var(--accent);
+            border-left: 5px solid var(--accent);
             padding-left: 12px;
-            margin: 25px 0 15px 0;
-            background: linear-gradient(to right, #eef6fb, transparent);
+            margin: 20px 0 15px 0;
+            background: #eef6fb;
             padding: 10px;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 5px 5px 0;
         }
 
         .section-header {
             font-size: 14px;
             font-weight: bold;
-            color: #fff;
-            background: #bdc3c7;
-            padding: 5px 10px;
-            border-radius: 4px;
-            margin: 20px 0 10px 0;
-            display: inline-block;
+            color: #7f8c8d;
+            margin: 15px 0 10px 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* 题目卡片 */
         .question-card {
             background: var(--card);
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
-            border: 1px solid #e1e4e8;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            border: 1px solid #e0e0e0;
         }
 
         .q-stem {
-            font-weight: 700;
+            font-weight: 600;
             font-size: 16px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             line-height: 1.5;
             color: #2c3e50;
         }
@@ -120,11 +118,11 @@
             font-size: 14px;
             color: var(--success);
             margin-bottom: 12px;
-            padding: 10px;
+            padding: 8px;
             background: #eafaf1;
             border-radius: 6px;
             display: none;
-            border-left: 4px solid var(--success);
+            border-left: 3px solid var(--success);
         }
 
         .options-grid {
@@ -136,34 +134,35 @@
             text-align: left;
             background: #fff;
             border: 1px solid #dcdcdc;
-            padding: 14px;
+            padding: 12px 15px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 15px;
             transition: all 0.2s;
             position: relative;
             line-height: 1.4;
-            color: #57606f;
+            color: #4a5568;
+            word-wrap: break-word;
         }
 
-        .opt-btn:active { background: #f1f2f6; }
+        .opt-btn:active { background: #f0f0f0; }
 
         .opt-trans {
             display: block;
             font-size: 13px;
             color: #7f8c8d;
-            margin-top: 6px;
-            padding-top: 6px;
+            margin-top: 5px;
+            padding-top: 5px;
             border-top: 1px dashed #eee;
             display: none;
         }
 
         /* 答题状态 */
         .opt-btn.correct {
-            background-color: #d4edda;
+            background-color: #e3f9e5;
             border-color: var(--success);
-            color: #155724;
-            font-weight: 600;
+            color: #27ae60;
+            font-weight: bold;
         }
         .opt-btn.correct::after {
             content: "✓";
@@ -171,13 +170,12 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            font-weight: bold;
         }
 
         .opt-btn.wrong {
-            background-color: #f8d7da;
+            background-color: #fdeaea;
             border-color: var(--error);
-            color: #721c24;
+            color: #c0392b;
         }
         .opt-btn.wrong::after {
             content: "✕";
@@ -185,44 +183,43 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            font-weight: bold;
         }
 
         .answer-key {
             margin-top: 15px;
-            padding-top: 12px;
-            border-top: 2px dashed #f1f2f6;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
             color: var(--error);
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             display: none;
         }
 
         /* 底部控制栏 */
         .bottom-dock {
             position: fixed;
-            bottom: 25px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
+            width: 92%;
             max-width: 600px;
             background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-            padding: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            padding: 10px;
             display: flex;
             justify-content: space-between;
-            gap: 12px;
+            gap: 10px;
             z-index: 900;
-            border-radius: 60px;
+            border-radius: 50px;
             border: 1px solid rgba(0,0,0,0.05);
         }
 
         .dock-btn {
             flex: 1;
             border: none;
-            padding: 14px 0;
-            border-radius: 30px;
+            padding: 12px 0;
+            border-radius: 25px;
             font-weight: bold;
             font-size: 14px;
             cursor: pointer;
@@ -235,7 +232,7 @@
         .dock-btn.active {
             background: var(--primary);
             color: white;
-            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.3);
+            box-shadow: 0 4px 10px rgba(44, 62, 80, 0.3);
         }
 
         .btn-export { background: var(--success); color: white; }
@@ -276,137 +273,82 @@
         // BOOK 1: 综合教程 (Comprehensive)
         book1: [
             {
-                unit: "Unit 1: Bringing Dreams to Life",
-                sections: [
-                    {
-                        name: "I. Vocabulary",
-                        qs: [
-                            { q: "1. They did not realise that they were being _____ into a trap.", t: "1. 他们没有意识到自己正被诱入陷阱。", opts: [{v:"A. stumbled", t:"跌跌撞撞"}, {v:"B. lured", t:"引诱"}, {v:"C. treaded", t:"踩"}, {v:"D. slipped", t:"滑倒"}], ans: "B" },
-                            { q: "2. You should get out your English books and _____ your reading assignments.", t: "2. 你应该拿出英语书，补上你的阅读作业。", opts: [{v:"A. move on", t:"继续"}, {v:"B. pursue on", t:"追求"}, {v:"C. follow on", t:"跟随"}, {v:"D. catch up on", t:"赶上/补上"}], ans: "D" },
-                            { q: "3. She bears a _____ resemblance to her older sister.", t: "3. 她和她姐姐长得惊人地相似。", opts: [{v:"A. striking", t:"惊人的"}, {v:"B. different", t:"不同的"}, {v:"C. prestigious", t:"有名望的"}, {v:"D. notorious", t:"臭名昭著的"}], ans: "A" },
-                            { q: "4. Before she _____ in Portugal, she had run her own antiques shop.", t: "4. 在定居葡萄牙之前，她经营着自己的古董店。", opts: [{v:"A. settled down", t:"定居"}, {v:"B. settled up", t:"结清"}, {v:"C. settled on", t:"决定"}, {v:"D. settled away", t:"(无此搭配)"}], ans: "A" },
-                            { q: "5. He's realistic enough to know he's not going to succeed _____.", t: "5. 他很现实，知道自己不会一夜成功。", opts: [{v:"A. hastily", t:"匆忙地"}, {v:"B. hurriedly", t:"仓促地"}, {v:"C. rashly", t:"鲁莽地"}, {v:"D. overnight", t:"一夜之间"}], ans: "D" }
-                        ]
-                    },
-                    {
-                        name: "II. Listening Comprehension (Long Conversation)",
-                        qs: [
-                            { q: "1. What was the most difficult for Penny to become a taxi driver?", t: "1. 对Penny来说，成为出租车司机最困难的是什么？", opts: [{v:"A. Judging distance", t:"判断距离"}, {v:"B. Judging direction", t:"判断方向"}, {v:"C. Lack of experience", t:"缺乏经验"}, {v:"D. Lack of skills", t:"缺乏技巧"}], ans: "A" },
-                            { q: "2. What does Penny like best about her job?", t: "2. Penny最喜欢她工作的哪一点？", opts: [{v:"A. Seeing interesting buildings", t:"看有趣的建筑"}, {v:"B. Taking long drives", t:"长途驾驶"}, {v:"C. Being outdoors and seeing changes", t:"在户外看城市变化"}, {v:"D. Driving in different weather", t:"在不同天气驾驶"}], ans: "C" },
-                            { q: "3. What will Penny try to avoid when she goes on vacation?", t: "3. Penny去度假时会尽量避免什么？", opts: [{v:"A. Driving on her own", t:"自己开车"}, {v:"B. Taking a train", t:"坐火车"}, {v:"C. Booking airline tickets", t:"订机票"}, {v:"D. Being driven by others", t:"被别人载"}], ans: "A" },
-                            { q: "4. What do we know about Penny from the conversation?", t: "4. 关于Penny我们知道什么？", opts: [{v:"A. Only woman driver", t:"唯一的女性司机"}, {v:"B. 10 days leave", t:"10天假"}, {v:"C. Driving for 12 years", t:"开了12年车"}, {v:"D. Plans to change job", t:"计划换工作"}], ans: "C" }
-                        ]
-                    },
-                    {
-                        name: "III. Listening Comprehension (Passage & Lecture)",
-                        qs: [
-                            { q: "5. What is the United Nations agency worried about?", t: "5. 联合国机构担心什么？", opts: [{v:"A. Too many people", t:"人太多"}, {v:"B. Economic crisis", t:"经济危机"}, {v:"C. Jobs created are insufficient", t:"创造的就业不足"}, {v:"D. Old people unemployed", t:"老人失业"}], ans: "C" },
-                            { q: "6. Where is the increased world unemployment mostly from?", t: "6. 世界失业率增加主要来自哪里？", opts: [{v:"A. Sub-Saharan Africa", t:"撒哈拉以南非洲"}, {v:"B. East and South Asia", t:"东亚和南亚"}, {v:"C. North America", t:"北美"}, {v:"D. South America", t:"南美"}], ans: "B" },
-                            { q: "7. What do we know about youth unemployment?", t: "7. 关于青年失业我们知道什么？", opts: [{v:"A. Over 30%", t:"超过30%"}, {v:"B. Particular victims of unemployment", t:"主要的受害者"}, {v:"C. Female concern", t:"女性关注"}, {v:"D. Aged 14-25", t:"14-25岁"}], ans: "B" },
-                            { q: "8. Where is the speaker from?", t: "8. 演讲者来自哪里？", opts: [{v:"A. America", t:"美国"}, {v:"B. Hyderabad", t:"海得拉巴"}, {v:"C. India", t:"印度"}, {v:"D. Not mentioned", t:"未提及"}], ans: "A" },
-                            { q: "9. What is the speaker doing now?", t: "9. 演讲者现在在做什么？", opts: [{v:"A. Hosting Summit", t:"主持峰会"}, {v:"B. Talking with PM", t:"与总理交谈"}, {v:"C. Addressing Summit", t:"在峰会演讲"}, {v:"D. Opening speech", t:"开幕致辞"}], ans: "C" },
-                            { q: "10. What can you learn about Prime Minister Modi?", t: "10. 关于莫迪总理你能了解到什么？", opts: [{v:"A. Sold tea as a child", t:"小时候卖茶"}, {v:"B. Promised riches", t:"承诺财富"}, {v:"C. Opened universities", t:"开设大学"}, {v:"D. Going to Mars", t:"去火星"}], ans: "A" }
-                        ]
-                    }
+                unit: "Unit 1: Honesty & Society",
+                qs: [
+                    { q: "1. What are people troubled by nowadays?", t: "1. 如今人们被什么所困扰？", opts: [{v:"A. Dishonesty.", t:"不诚实。"}, {v:"B. Honesty.", t:"诚实。"}, {v:"C. Examination.", t:"考试。"}, {v:"D. Business.", t:"商业。"}], ans: "A" },
+                    { q: "2. When do consumers get hurt?", t: "2. 消费者什么时候会受到伤害？", opts: [{v:"A. They get hurt when they buy some folk products.", t:"当他们购买民间产品时。"}, {v:"B. They get hurt when they buy some cheap products.", t:"当他们购买便宜货时。"}, {v:"C. They get hurt when they buy some fake products.", t:"当他们买到假货时。"}, {v:"D. They get hurt when they buy some expensive products.", t:"当他们购买昂贵产品时。"}], ans: "C" },
+                    { q: "3. What is the main reason why some people cheat?", t: "3. 为什么有些人作弊，其主要原因是什么？", opts: [{v:"A. The interest in the long run.", t:"长远利益。"}, {v:"B. The responsibilities in the long run.", t:"长期责任。"}, {v:"C. The immediate responsibilities.", t:"眼前的责任。"}, {v:"D. The immediate interest.", t:"眼前利益。"}], ans: "D" },
+                    { q: "4. Where do dishonest people cheat?", t: "4. 不诚实的人在哪里作弊？", opts: [{v:"A. In office.", t:"在办公室。"}, {v:"B. At home.", t:"在家里。"}, {v:"C. In class.", t:"在课堂上。"}, {v:"D. All of the above.", t:"以上所有。"}], ans: "D" },
+                    { q: "5. As soon as ______ comes out, the dishonest people will lose their credibility.", t: "5. 一旦______显露出来，不诚实的人就会失去信用。", opts: [{v:"A. the cheating", t:"欺骗"}, {v:"B. the truth", t:"真相"}, {v:"C. the responsibility", t:"责任"}, {v:"D. the mask", t:"面具"}], ans: "B" },
+                    { q: "6. How do people usually make mistakes according to the author?", t: "6. 根据作者，人们通常是如何犯错的？", opts: [{v:"A. People usually make mistakes out of right motives.", t:"人们通常出于正确的动机犯错。"}, {v:"B. People usually make mistakes out of left motives.", t:"人们通常出于'左'的动机犯错。"}, {v:"C. People usually make mistakes out of negative motives.", t:"人们通常出于消极动机犯错。"}, {v:"D. People usually make mistakes out of wrong motives.", t:"人们通常出于错误动机犯错。"}], ans: "A" },
+                    { q: "7. What would the author prefer to trust?", t: "7. 作者更愿意相信什么？", opts: [{v:"A. The cynical remarks of unhappy men.", t:"不快乐者的愤世嫉俗言论。"}, {v:"B. His own cynical opinions.", t:"他自己的愤世嫉俗观点。"}, {v:"C. His own experience and observation.", t:"他自己的经验和观察。"}, {v:"D. The experience and observation of unhappy men.", t:"不快乐者的经验和观察。"}], ans: "C" },
+                    { q: "8. What is the author?", t: "8. 作者的职业是什么？", opts: [{v:"A. He is a newspaperman and photographer.", t:"他是记者和摄影师。"}, {v:"B. He is a newspaperman and biographer.", t:"他是记者和传记作家。"}, {v:"C. He is a photographer and biographer.", t:"他是摄影师和传记作家。"}, {v:"D. He is a photographer and bibliographer.", t:"他是摄影师和书目学家。"}], ans: "B" },
+                    { q: "9. Where did the author live in 1931?", t: "9. 1931年作者住在哪里？", opts: [{v:"A. In Spain.", t:"在西班牙。"}, {v:"B. In America.", t:"在美国。"}, {v:"C. In Australia.", t:"在澳大利亚。"}, {v:"D. In England.", t:"在英国。"}], ans: "A" },
+                    { q: "10. The name of the new republican anthem is \"______\".", t: "10. 新共和国国歌的名字是“______”。", opts: [{v:"A. Stand Up", t:"站起来"}, {v:"B. Change", t:"改变"}, {v:"C. Because", t:"因为"}, {v:"D. Wake Up", t:"醒来"}], ans: "C" }
                 ]
             },
             {
-                unit: "Unit 2: Say It Your Way",
-                sections: [
-                    {
-                        name: "I. Vocabulary",
-                        qs: [
-                            { q: "1. In terms of word-formation, they can be borrowed by means of _____, compounding and blending.", t: "1. 就构词法而言，可以通过_____、复合和混合借用词汇。", opts: [{v:"A. affixation", t:"词缀法"}, {v:"B. suffix", t:"后缀"}, {v:"C. prefix", t:"前缀"}, {v:"D. abbreviation", t:"缩写"}], ans: "A" },
-                            { q: "2. Let's _____ it vertically.", t: "2. 让我们垂直_____它。", opts: [{v:"A. splash", t:"溅"}, {v:"B. squish", t:"压扁/挤压"}, {v:"C. spot", t:"发现"}, {v:"D. spread", t:"传播"}], ans: "B" },
-                            { q: "3. The university gets a government _____.", t: "3. 这所大学获得政府_____。", opts: [{v:"A. ground", t:"地面"}, {v:"B. grant", t:"拨款"}, {v:"C. group", t:"组"}, {v:"D. grief", t:"悲伤"}], ans: "B" },
-                            { q: "4. Teachers thought their point of view was not _____ to the students.", t: "4. 老师认为他们的观点没有_____给学生。", opts: [{v:"A. getting over", t:"克服"}, {v:"B. getting off", t:"下车"}, {v:"C. getting across", t:"传达/被理解"}, {v:"D. getting rid of", t:"摆脱"}], ans: "C" },
-                            { q: "5. You should stop talking when you see this ______.", t: "5. 看到这个______你应该停止说话。", opts: [{v:"A. finger", t:"手指"}, {v:"B. hand", t:"手"}, {v:"C. shake", t:"摇动"}, {v:"D. gesture", t:"手势"}], ans: "D" }
-                        ]
-                    },
-                    {
-                        name: "II. Listening Comprehension",
-                        qs: [
-                            { q: "1. Why did Ms. Anderson call?", t: "1. Anderson女士为什么打电话？", opts: [{v:"A. To set up a meeting", t:"安排会议"}, {v:"B. To discuss business", t:"讨论生意"}, {v:"C. To check schedule", t:"检查日程"}, {v:"D. To talk about a delivery problem", t:"谈论配送问题"}], ans: "D" },
-                            { q: "2. When will the earrings arrive according to Ms. Anderson?", t: "2. 根据Anderson女士的说法，耳环什么时候到？", opts: [{v:"A. Next Tuesday", t:"下周二"}, {v:"B. Next Thursday", t:"下周四"}, {v:"C. Next morning", t:"明天早上"}, {v:"D. It has arrived", t:"已到达"}], ans: "C" },
-                            { q: "3. What will Mr. Franks be doing Thursday afternoon?", t: "3. Franks先生周四下午要做什么？", opts: [{v:"A. Having a staff meeting", t:"员工会议"}, {v:"B. Meeting Ms. Anderson", t:"见Anderson女士"}, {v:"C. Meeting clients downtown", t:"在市区见客户"}, {v:"D. Meeting some clients out of town", t:"去外地见客户"}], ans: "D" },
-                            { q: "4. When will the meeting be scheduled?", t: "4. 会议安排在什么时候？", opts: [{v:"A. At 9 on Friday morning", t:"周五9点"}, {v:"B. At 10 on Friday morning", t:"周五10点"}, {v:"C. At 9 on Thursday morning", t:"周四9点"}, {v:"D. At 10 on Thursday morning", t:"周四10点"}], ans: "B" },
-                            { q: "5. What's the main idea of the passage?", t: "5. 这段话的主旨是什么？", opts: [{v:"A. The yearly report", t:"年度报告"}, {v:"B. Introduction of Baidu", t:"介绍百度"}, {v:"C. 2018 slang", t:"2018俚语"}, {v:"D. Top trendy Internet slang words of 2017", t:"2017网络流行语"}], ans: "D" },
-                            { q: "6. How is the list formed?", t: "6. 榜单是如何形成的？", opts: [{v:"A. Based on annual survey", t:"年度调查"}, {v:"B. Based on most commonly searched words", t:"搜索最多的词"}, {v:"C. Based on annual research", t:"年度研究"}, {v:"D. Based on a vote", t:"投票"}], ans: "B" },
-                            { q: "7. What is Baidu Baike?", t: "7. 百度百科是什么？", opts: [{v:"A. It's Wikipedia's Chinese version", t:"维基百科中文版"}, {v:"B. It's the most popular website", t:"流行网站"}, {v:"C. It's called China's Wikipedia", t:"被称为中国的维基百科"}, {v:"D. It's the biggest research website", t:"研究网站"}], ans: "C" },
-                            { q: "8. What is the lecture mainly about?", t: "8. 讲座主要是关于什么的？", opts: [{v:"A. The importance of communication", t:"重要性"}, {v:"B. How to avoid embarrassment", t:"避免尴尬"}, {v:"C. How to communicate with people", t:"如何沟通"}, {v:"D. The nature of communication", t:"本质"}], ans: "C" },
-                            { q: "9. How many tips are mentioned in the lecture?", t: "9. 讲座中提到了多少个技巧？", opts: [{v:"A. 2", t:"2"}, {v:"B. 3", t:"3"}, {v:"C. 4", t:"4"}, {v:"D. 5", t:"5"}], ans: "B" },
-                            { q: "10. Which is NOT true according to the lecture?", t: "10. 根据讲座，哪项不正确？", opts: [{v:"A. Making people listen to you kills a conversation", t:"强迫听会扼杀对话"}, {v:"B. Self-confidence is attracting", t:"自信吸引人"}, {v:"C. Some people born with talent", t:"天赋是天生的"}, {v:"D. Asking yes/no questions can avoid awkward silence", t:"是非题避免沉默 (错误)"}], ans: "D" }
-                        ]
-                    }
+                unit: "Unit 2: Education Systems",
+                qs: [
+                    { q: "1. Who can be awarded the Ontario Secondary School Diploma?", t: "1. 谁可以获得安大略省中学文凭？", opts: [{v:"A. Those who begin the Ontario educational curriculum.", t:"开始安大略教育课程的人。"}, {v:"B. Those who begin the Ontario professional curriculum.", t:"开始安大略职业课程的人。"}, {v:"C. Those who complete the Ontario professional curriculum.", t:"完成安大略职业课程的人。"}, {v:"D. Those who complete the Ontario educational curriculum.", t:"完成安大略教育课程的人。"}], ans: "D" },
+                    { q: "2. How many credits should Saskatchewan students earn from Grade 10 to 12 if they want to get a high school diploma?", t: "2. 萨斯喀彻温省学生10-12年级需要多少学分才能获得高中文凭？", opts: [{v:"A. A total of 24 credits.", t:"总共24学分。"}, {v:"B. A total of 25 credits.", t:"总共25学分。"}, {v:"C. A total of 26 credits.", t:"总共26学分。"}, {v:"D. A total of 27 credits.", t:"总共27学分。"}], ans: "A" },
+                    { q: "3. When is the California High School Exit Examination normally first administered?", t: "3. 加州高中毕业考试通常何时首次进行？", opts: [{v:"A. In the 9th grade.", t:"9年级。"}, {v:"B. In the 10th grade.", t:"10年级。"}, {v:"C. In the 11th grade.", t:"11年级。"}, {v:"D. In the 12th grade.", t:"12年级。"}], ans: "B" },
+                    { q: "4. How many Health or Physical Education credits should high school students in North Carolina obtain so as to win a high school diploma?", t: "4. 北卡罗来纳州高中生需要多少健康或体育学分才能获得高中文凭？", opts: [{v:"A. Half a credit.", t:"0.5学分。"}, {v:"B. One credit.", t:"1学分。"}, {v:"C. One and a half credits.", t:"1.5学分。"}, {v:"D. Two credits.", t:"2学分。"}], ans: "B" },
+                    { q: "5. In ______, the Minimum High School Program, the Recommended High School Program, and the Advanced (Distinguished) High School Program are offered for graduation.", t: "5. 在______，提供最低高中课程、推荐高中课程和高级（杰出）高中课程用于毕业。", opts: [{v:"A. California", t:"加利福尼亚"}, {v:"B. North Carolina", t:"北卡罗来纳"}, {v:"C. Ontario", t:"安大略"}, {v:"D. Texas", t:"德克萨斯"}], ans: "D" },
+                    { q: "6. Whom is the General Education Development (GED) credential offered for as an alternative qualification?", t: "6. 通用教育发展（GED）证书是为谁提供的替代资格？", opts: [{v:"A. Those who do not successfully enter a high school.", t:"没有成功进入高中的人。"}, {v:"B. Those who do not successfully enter a primary school.", t:"没有成功进入小学的人。"}, {v:"C. Those who do not successfully earn a high school diploma.", t:"没有成功获得高中文凭的人。"}, {v:"D. Those who do not successfully earn a primary school diploma.", t:"没有成功获得小学文凭的人。"}], ans: "C" },
+                    { q: "7. How many subject groups can be chosen from for those involved in the program of study for the IB Diploma?", t: "7. 参与IB文凭学习计划的学生可以从多少个学科组中选择？", opts: [{v:"A. Six.", t:"六个。"}, {v:"B. Five.", t:"五个。"}, {v:"C. Four.", t:"四个。"}, {v:"D. Three.", t:"三个。"}], ans: "A" },
+                    { q: "8. What is the IGCSE the international counterpart to?", t: "8. IGCSE是哪个证书的国际对应版？", opts: [{v:"A. The GSCE.", t:"GSCE。"}, {v:"B. The GCSE.", t:"GCSE。"}, {v:"C. The SGCE.", t:"SGCE。"}, {v:"D. The ESGC.", t:"ESGC。"}], ans: "B" },
+                    { q: "9. When is the IGCSE typically awarded?", t: "9. IGCSE通常何时授予？", opts: [{v:"A. At Year 9.", t:"9年级。"}, {v:"B. At Year 10.", t:"10年级。"}, {v:"C. At Year 11.", t:"11年级。"}, {v:"D. At Year 12.", t:"12年级。"}], ans: "C" },
+                    { q: "10. ______ must be earned to achieve the Cambridge AICE Diploma.", t: "10. 获得剑桥AICE文凭必须修满______。", opts: [{v:"A. Five credits", t:"5学分"}, {v:"B. Six credits", t:"6学分"}, {v:"C. Seven credits", t:"7学分"}, {v:"D. Eight credits", t:"8学分"}], ans: "B" }
                 ]
             },
             {
-                unit: "Unit 3: To the Rescue!",
-                sections: [
-                    {
-                        name: "I. Vocabulary",
-                        qs: [
-                            { q: "1. Video cameras with night vision can be _____ by movement.", t: "1. 带夜视功能的摄像机可以通过移动来_____。", opts: [{v:"A. highlighted", t:"强调"}, {v:"B. activated", t:"激活"}, {v:"C. upgraded", t:"升级"}, {v:"D. promoted", t:"促进"}], ans: "B" },
-                            { q: "2. The company manufactures a range of _____ light-weight bicycles.", t: "2. 公司生产一系列_____轻便自行车。", opts: [{v:"A. innovative", t:"创新的"}, {v:"B. provocative", t:"挑衅的"}, {v:"C. invigorating", t:"使人精力充沛的"}, {v:"D. irrational", t:"不合理的"}], ans: "A" },
-                            { q: "3. This city has been selected as the _____ for the coming Olympic Games.", t: "3. 该城市被选为即将到来的奥运会的_____。", opts: [{v:"A. haunt", t:"常去之处"}, {v:"B. resort", t:"度假胜地"}, {v:"C. retreat", t:"撤退/静修处"}, {v:"D. site", t:"地点/场所"}], ans: "D" },
-                            { q: "4. A few days ago, a fire had _____ large parts of the castle.", t: "4. 几天前，一场大火_____了城堡的大部分。", opts: [{v:"A. eliminated", t:"消除"}, {v:"B. devastated", t:"摧毁"}, {v:"C. diminished", t:"减少"}, {v:"D. abolished", t:"废除"}], ans: "B" },
-                            { q: "5. None of us should ever _____ the degree of difficulty women face in career advancement.", t: "5. 我们都不应该_____女性在职业发展中面临的困难程度。", opts: [{v:"A. undercut", t:"削价竞争"}, {v:"B. underline", t:"强调"}, {v:"C. undermine", t:"破坏"}, {v:"D. underestimate", t:"低估"}], ans: "D" },
-                            { q: "6. In the immediate _____ of the war, a mood of hope and reconciliation sprang up.", t: "6. 在战争的直接_____中，希望和和解的情绪涌现。", opts: [{v:"A. afterimage", t:"残像"}, {v:"B. aftereffect", t:"后效"}, {v:"C. aftermath", t:"后果/余波"}, {v:"D. afterthought", t:"事后的想法"}], ans: "C" },
-                            { q: "7. Emotional or mental problems can _____ a physical cause.", t: "7. 情绪或精神问题可能_____身体原因。", opts: [{v:"A. contribute to", t:"促成"}, {v:"B. lead to", t:"导致"}, {v:"C. result from", t:"起因于"}, {v:"D. lie in", t:"在于"}], ans: "C" }
-                        ]
-                    },
-                    {
-                        name: "II. Listening Comprehension",
-                        qs: [
-                            { q: "8. What's the difference between New Orleans and rest of US?", t: "听力8. 新奥尔良和美国其他地方有什么区别？", opts: [{v:"A. Colonized by England", t:"被英国殖民"}, {v:"B. More cultural influences", t:"更多影响"}, {v:"C. Melting pot", t:"熔炉"}, {v:"D. Greatly influenced by French culture", t:"深受法国文化影响"}], ans: "D" },
-                            { q: "9. What do we know about a garden salad?", t: "听力9. 关于花园沙拉我们知道什么？", opts: [{v:"A. Many parts make new flavor", t:"结合产生新风味"}, {v:"B. Better than melting pot", t:"比熔炉好"}, {v:"C. Each piece makes flavor", t:"每块制造风味"}, {v:"D. Loses identity", t:"失去个性"}], ans: "A" },
-                            { q: "10. What is said about the culture in New Orleans?", t: "听力10. 关于新奥尔良的文化说了什么？", opts: [{v:"A. Spanish beginning", t:"西班牙起源"}, {v:"B. Influenced by India", t:"印度影响"}, {v:"C. Influenced by American/English culture", t:"美英影响"}, {v:"D. Wasn't influenced by Latino", t:"无拉丁影响"}], ans: "C" }
-                        ]
-                    }
+                unit: "Unit 3: Helpfulness & Psychology",
+                qs: [
+                    { q: "1. Which of the following is included in the circumstances that inhibit or enhance helpfulness?", t: "1. 下列哪项包含在抑制或增强助人行为的因素中？", opts: [{v:"A. Uncertainty and similarity.", t:"不确定性和相似性。"}, {v:"B. Reality and clarity.", t:"现实和清晰度。"}, {v:"C. Similarity and clarity.", t:"相似性和清晰度。"}, {v:"D. Uncertainty and reality.", t:"不确定性和现实。"}], ans: "C" },
+                    { q: "2. Under what circumstances are victims less likely to get help according to the bystander effect?", t: "2. 根据旁观者效应，受害者在什么情况下不太可能获得帮助？", opts: [{v:"A. When many people are around.", t:"当周围有很多人时。"}, {v:"B. When some people are around.", t:"当有一些人时。"}, {v:"C. When a few people are around.", t:"当有少数人时。"}, {v:"D. When few people are around.", t:"当几乎没人时。"}], ans: "A" },
+                    { q: "3. Who usually stop to help others?", t: "3. 谁通常会停下来帮助别人？", opts: [{v:"A. Those late for an important conference.", t:"开重要会议迟到的人。"}, {v:"B. Those on the way to catch a plane.", t:"在赶飞机路上的人。"}, {v:"C. Those late for an important date.", t:"重要约会迟到的人。"}, {v:"D. Those leisurely on the way to an unimportant appointment.", t:"悠闲地去参加非重要约会的人。"}], ans: "D" },
+                    { q: "4. When are people most helpful?", t: "4. 人们什么时候最乐于助人？", opts: [{v:"A. When they know clearly about the solution.", t:"当他们清楚解决方案时。"}, {v:"B. When they are not clear about the solution.", t:"当他们不清楚解决方案时。"}, {v:"C. When they know clearly about the other’s problem.", t:"当他们清楚对方的问题时。"}, {v:"D. When they are not clear about the other’s problem.", t:"当他们不清楚对方的问题时。"}], ans: "C" },
+                    { q: "5. People of high positive emotionality, empathy, and self-efficacy are most likely to be ______.", t: "5. 具有高度积极情绪、同理心和自我效能感的人最可能是______。", opts: [{v:"A. concerned and helpless", t:"关心但无助的"}, {v:"B. concerned and helpful", t:"关心且乐于助人的"}, {v:"C. positive and helpful", t:"积极有益的"}, {v:"D. negative and helpless", t:"消极无助的"}], ans: "B" },
+                    { q: "6. Who did researches on the factors of increasing the willingness to help?", t: "6. 谁研究了增加助人意愿的因素？", opts: [{v:"A. Medical scientists.", t:"医学科学家。"}, {v:"B. Mathematical scientists.", t:"数学科学家。"}, {v:"C. Social scientists.", t:"社会科学家。"}, {v:"D. Natural scientists.", t:"自然科学家。"}], ans: "C" },
+                    { q: "7. What can be effective when personalized?", t: "7. 个性化时什么可以是有效的？", opts: [{v:"A. Verbal image.", t:"语言形象。"}, {v:"B. Nonverbal image.", t:"非语言形象。"}, {v:"C. Verbal appeals.", t:"口头呼吁。"}, {v:"D. Nonverbal appeals.", t:"非语言呼吁。"}], ans: "D" },
+                    { q: "8. What can also increase people’s helpful contributions?", t: "8. 还有什么可以增加人们的有益贡献？", opts: [{v:"A. Labeling them as helpful.", t:"给他们贴上乐于助人的标签。"}, {v:"B. Labeling them as useful.", t:"贴上有用的标签。"}, {v:"C. Labeling them as careful.", t:"贴上细心的标签。"}, {v:"D. Labeling them as meaningful.", t:"贴上有意义的标签。"}], ans: "A" },
+                    { q: "9. The author suggests inviting advantaged people to put themselves ______.", t: "9. 作者建议邀请优势人群将自己置于______。", opts: [{v:"A. in others’ clothes", t:"别人的衣服里"}, {v:"B. in their own clothes", t:"自己的衣服里"}, {v:"C. in others’ shoes", t:"别人的处境中(鞋子里)"}, {v:"D. in their own shoes", t:"自己的处境中"}], ans: "C" },
+                    { q: "10. When did the families of European Christians risk their lives to rescue Jews?", t: "10. 欧洲基督徒家庭何时冒着生命危险去营救犹太人？", opts: [{v:"A. In the 1930s–1940s.", t:"30-40年代。"}, {v:"B. In the 1930s–1950s.", t:"30-50年代。"}, {v:"C. In the 1940s–1950s.", t:"40-50年代。"}, {v:"D. In the 1950s only.", t:"仅50年代。"}], ans: "B" }
                 ]
             },
             {
-                unit: "Unit 4: Beyond Limits",
-                sections: [
-                    {
-                        name: "I. Vocabulary & Listening",
-                        qs: [
-                            { q: "1. Also, tell him not to be afraid to ask for _____ if he hasn't understood...", t: "1. 另外，告诉他如果没听懂不要害怕要求_____...", opts: [{v:"A. translation", t:"翻译"}, {v:"B. interpretation", t:"解释"}, {v:"C. comprehension", t:"理解"}, {v:"D. clarification", t:"澄清"}], ans: "D" },
-                            { q: "2. This disorder is easily _____ but not so easily treated.", t: "2. 这种失调很容易_____但不容易治疗。", opts: [{v:"A. diagnosed", t:"诊断"}, {v:"B. realized", t:"意识到"}, {v:"C. explored", t:"探索"}, {v:"D. emerged", t:"出现"}], ans: "A" },
-                            { q: "8. Which is a positive attitude when people are facing their weaknesses or limitations?", t: "听力8. 面对弱点哪种是积极的态度？", opts: [{v:"A. Feel inferior", t:"自卑"}, {v:"B. Get help", t:"求助"}, {v:"C. Rise above limitations", t:"超越限制"}, {v:"D. Accept them", t:"接受"}], ans: "C" },
-                            { q: "9. What is Andrew Becroft's profession?", t: "听力9. Andrew Becroft的职业是什么？", opts: [{v:"A. Orator", t:"演说家"}, {v:"B. Principal Youth Court Judge", t:"首席青年法庭法官"}, {v:"C. Presenter", t:"主持人"}, {v:"D. Principal", t:"校长"}], ans: "B" },
-                            { q: "10. What did Andrew Becroft have to do?", t: "听力10. Andrew Becroft必须做什么？", opts: [{v:"A. Attend ceremonies", t:"参加典礼"}, {v:"B. Hide weakness", t:"隐藏弱点"}, {v:"C. Speak in front of others regularly", t:"定期在他人面前讲话"}, {v:"D. Limit his life", t:"限制生活"}], ans: "C" }
-                        ]
-                    }
+                unit: "Unit 4: The Titanic",
+                qs: [
+                    { q: "1. When did the Titanic hit an iceberg?", t: "1. 泰坦尼克号什么时候撞上冰山的？", opts: [{v:"A. On April 10, 1912.", t:"1912年4月10日。"}, {v:"B. On April 12, 1912.", t:"1912年4月12日。"}, {v:"C. On April 14, 1912.", t:"1912年4月14日。"}, {v:"D. On April 16, 1912.", t:"1912年4月16日。"}], ans: "C" },
+                    { q: "2. How many survivors did the Cunard liner RMS Carpathia bring aboard?", t: "2. 库纳德邮轮卡帕西亚号救起了多少幸存者？", opts: [{v:"A. About 705 survivors.", t:"约705名幸存者。"}, {v:"B. About 375 survivors.", t:"约375名幸存者。"}, {v:"C. About 507 survivors.", t:"约507名幸存者。"}, {v:"D. About 735 survivors.", t:"约735名幸存者。"}], ans: "A" },
+                    { q: "3. When was the International Convention for the Safety of Life at Sea (SOLAS) established?", t: "3. 国际海上人命安全公约(SOLAS)是什么时候建立的？", opts: [{v:"A. In 1985.", t:"1985年。"}, {v:"B. In 1912.", t:"1912年。"}, {v:"C. In 1914.", t:"1914年。"}, {v:"D. In 2009.", t:"2009年。"}], ans: "C" },
+                    { q: "4. Where have thousands of artefacts been displayed?", t: "4. 数以千计的文物在哪里展出？", opts: [{v:"A. At museums in the U.S.", t:"在美国的博物馆。"}, {v:"B. At museums in the UK.", t:"在英国的博物馆。"}, {v:"C. At museums all over Europe.", t:"在全欧洲的博物馆。"}, {v:"D. At museums all over the world.", t:"在世界各地的博物馆。"}], ans: "D" },
+                    { q: "5. ______ was the final survivor of the Titanic sinking.", t: "5. ______ 是泰坦尼克号沉没的最后一位幸存者。", opts: [{v:"A. Edward Smith", t:"Edward Smith"}, {v:"B. Millvina Dean", t:"Millvina Dean"}, {v:"C. Harold Lowe", t:"Harold Lowe"}, {v:"D. Joseph Boxhall", t:"Joseph Boxhall"}], ans: "B" },
+                    { q: "6. Where were inquiries about the Titanic event carried out?", t: "6. 关于泰坦尼克号事件的调查是在哪里进行的？", opts: [{v:"A. In the U.S.", t:"在美国。"}, {v:"B. In the UK.", t:"在英国。"}, {v:"C. In the U.S. and the UK.", t:"在美国和英国。"}, {v:"D. Around the world.", t:"在世界各地。"}], ans: "C" },
+                    { q: "7. When did the U.S. Senate’s inquiry into the Titanic disaster begin?", t: "7. 美国参议院对泰坦尼克号灾难的调查何时开始？", opts: [{v:"A. On May 2, 1912.", t:"1912年5月2日。"}, {v:"B. On July 3, 1912.", t:"1912年7月3日。"}, {v:"C. On June 18, 1912.", t:"1912年6月18日。"}, {v:"D. On April 19, 1912.", t:"1912年4月19日。"}], ans: "D" },
+                    { q: "8. Who headed the British Board of Trade’s inquiry into the Titanic disaster?", t: "8. 谁领导了英国贸易委员会对泰坦尼克号灾难的调查？", opts: [{v:"A. Guglielmo Marconi.", t:"Guglielmo Marconi。"}, {v:"B. Lord Mersey.", t:"Lord Mersey。"}, {v:"C. Captain Arthur Rostron.", t:"Captain Arthur Rostron。"}, {v:"D. J. P. Morgan.", t:"J. P. Morgan。"}], ans: "B" },
+                    { q: "9. What was an International Ice Patrol set up for?", t: "9. 建立国际冰情巡逻队是为了什么？", opts: [{v:"A. eliminating the presence of icebergs in the North Atlantic.", t:"消除北大西洋的冰山。"}, {v:"B. eliminating the presence of icebergs in the South Atlantic.", t:"消除南大西洋的冰山。"}, {v:"C. monitoring the presence of icebergs in the North Atlantic.", t:"监测北大西洋的冰山。"}, {v:"D. monitoring the presence of icebergs in the South Atlantic.", t:"监测南大西洋的冰山。"}], ans: "C" },
+                    { q: "10. Guglielmo Marconi gave evidence to the court of inquiry about _______.", t: "10. Guglielmo Marconi 向调查法庭提供了关于_______的证据。", opts: [{v:"A. the telegraphy", t:"电报技术"}, {v:"B. the constant service", t:"持续服务"}, {v:"C. the speed limit", t:"速度限制"}, {v:"D. the voyage insurance", t:"航行保险"}], ans: "A" }
                 ]
             },
             {
-                unit: "Unit 5: Stress: Friend or Foe?",
-                sections: [
-                    {
-                        name: "I. Vocabulary",
-                        qs: [
-                            { q: "1. You can describe someone's bad habits as _____ when they have behaved like that for a long time.", t: "1. 如果某人的坏习惯持续很长时间，你可以称之为_____。", opts: [{v:"A. mortal", t:"致命的"}, {v:"B. chronic", t:"慢性的/长期的"}, {v:"C. chronicle", t:"编年史"}, {v:"D. eternal", t:"永恒的"}], ans: "B" },
-                            { q: "2. His speech _____ the impression he is the main power.", t: "2. 他的演讲_____了他作为主要力量的印象。", opts: [{v:"A. advocates", t:"提倡"}, {v:"B. strengthens", t:"加强"}, {v:"C. decides", t:"决定"}, {v:"D. improves", t:"改善"}], ans: "B" },
-                            { q: "3. A survey of the British diet has _____ that a growing number of people are overweight.", t: "3. 一项关于英国饮食的调查_____越来越多的人超重。", opts: [{v:"A. unconcealed", t:"未隐瞒"}, {v:"B. concealed", t:"隐瞒"}, {v:"C. revealed", t:"揭示"}, {v:"D. uncovered", t:"揭露"}], ans: "C" },
-                            { q: "4. This is an opportunity to _____ the reputation of the company.", t: "4. 这是一个_____公司声誉的机会。", opts: [{v:"A. enhance", t:"提升"}, {v:"B. enchant", t:"使着迷"}, {v:"C. enrich", t:"丰富"}, {v:"D. endure", t:"忍受"}], ans: "B" },
-                            { q: "5. What little pain and _____ I've experienced so far is simply nothing compared to what he's been through.", t: "5. 到目前为止我经历的那点痛苦和_____与他所经历的相比简直不算什么。", opts: [{v:"A. variety", t:"多样性"}, {v:"B. adversity", t:"逆境/不幸"}, {v:"C. diversity", t:"差异"}, {v:"D. reverse", t:"相反"}], ans: "B" },
-                            { q: "6. The President is about to _____ his visit to China.", t: "6. 总统即将_____他对中国的访问。", opts: [{v:"A. tune up", t:"调整"}, {v:"B. wind up", t:"结束/收尾"}, {v:"C. come up", t:"发生"}, {v:"D. hold up", t:"举起/阻挡"}], ans: "B" },
-                            { q: "7. The proposed _____ would mandate a reduction of carbon dioxide of 40%.", t: "7. 提议的_____将强制减少40%的二氧化碳。", opts: [{v:"A. initiative", t:"倡议/法案"}, {v:"B. premise", t:"前提"}, {v:"C. hypothesis", t:"假设"}, {v:"D. assumption", t:"假定"}], ans: "A" }
-                        ]
-                    },
-                    {
-                        name: "II. Listening Comprehension",
-                        qs: [
-                            { q: "8. What should you do when doing business with foreigners?", t: "听力8. 与外国人做生意时应该做什么？", opts: [{v:"A. Learn language", t:"学语言"}, {v:"B. Study courses", t:"学课程"}, {v:"C. Learn from them", t:"向他们学习"}, {v:"D. Respect their traditions", t:"尊重传统"}], ans: "D" },
-                            { q: "9. What must you avoid doing with your Indian colleague?", t: "听力9. 与印度同事在一起时必须避免什么？", opts: [{v:"A. Admire possessions", t:"赞美财物"}, {v:"B. Click fingers", t:"打响指"}, {v:"C. Drink alcohol on 1st/7th", t:"初一/初七喝酒"}, {v:"D. Make appointment late", t:"迟约"}], ans: "C" },
-                            { q: "10. What do we learn about some Spanish business people?", t: "听力10. 关于西班牙商人我们了解什么？", opts: [{v:"A. Work very early", t:"早工作"}, {v:"B. Work until 2 and return later", t:"工作到2点后返回"}, {v:"C. Start very late", t:"晚开始"}, {v:"D. Never work afternoon", t:"下午不工作"}], ans: "B" }
-                        ]
-                    }
+                unit: "Unit 5: Perception & Listening",
+                qs: [
+                    { q: "1. Seeing and perceiving are ______.", t: "1. 看见和感知是______。", opts: [{v:"A. the same action", t:"同一动作"}, {v:"B. two separate actions", t:"两个分开的动作"}, {v:"C. two actions carried on entirely by the eyes", t:"完全由眼睛进行的两个动作"}, {v:"D. several actions that take place at different times", t:"在不同时间发生的几个动作"}], ans: "B" },
+                    { q: "2. Perceiving is an action that takes place ______.", t: "2. 感知是发生在______的动作。", opts: [{v:"A. in our eyes", t:"眼睛里"}, {v:"B. only when we think very hard about something", t:"只有当我们努力思考某事时"}, {v:"C. only under the direction of a psychologist", t:"只有在心理学家指导下"}, {v:"D. in every person’s mind", t:"在每个人的脑海中"}], ans: "D" },
+                    { q: "3. Perception involves what ______.", t: "3. 感知涉及______。", opts: [{v:"A. our senses tell us", t:"感官告诉我们的"}, {v:"B. our minds interpret", t:"我们思维解释的"}, {v:"C. we see with our eyes only", t:"我们仅用眼睛看到的"}, {v:"D. Both A and B.", t:"A和B都是"}], ans: "D" },
+                    { q: "4. Which of the following is implied but not stated?", t: "4. 下列哪项是暗示但未明说的？", opts: [{v:"A. Psychologists do not yet know how people see.", t:"心理学家还不知道人们如何看。"}, {v:"B. The best experiments are those in which all factors are controlled.", t:"最好的实验是那些所有因素都受到控制的实验。"}, {v:"C. The study of perception is going on now.", t:"感知的研究正在进行中。"}, {v:"D. Perception does not involve psychological factors.", t:"感知不涉及心理因素。"}], ans: "B" },
+                    { q: "5. Which of the following can be the best title for this passage?", t: "5. 这篇文章最好的标题是什么？", opts: [{v:"A. How We See.", t:"我们如何看。"}, {v:"B. How People Perceive.", t:"人们如何感知。"}, {v:"C. What Psychologists Perceive.", t:"心理学家感知什么。"}, {v:"D. How to Become an Experimental Psychologist.", t:"如何成为实验心理学家。"}], ans: "B" },
+                    { q: "6. According to the passage, listening only with ears may happen to us when ______.", t: "6. 根据文章，当我们______时，可能会只用耳朵听。", opts: [{v:"A. we are emotionally tired", t:"我们情感疲惫"}, {v:"B. we are physically disabled", t:"我们身体残疾"}, {v:"C. we are so interested in the topic", t:"我们对话题很感兴趣"}, {v:"D. we are asked many questions", t:"我们被问了很多问题"}], ans: "A" },
+                    { q: "7. Which of the following statements is NOT true about a good listener?", t: "7. 关于好听众，下列哪项陈述是不正确的？", opts: [{v:"A. He can feel what the speaker thinks.", t:"他能感受到演讲者的想法。"}, {v:"B. He can share the speaker’s feelings.", t:"他能分享演讲者的感受。"}, {v:"C. He can remember what the speaker says.", t:"他能记住演讲者说的话。"}, {v:"D. He can listen with his heart.", t:"他能用心倾听。"}], ans: "A" },
+                    { q: "8. The purpose in writing the second paragraph is to ______.", t: "8. 写第二段的目的是______。", opts: [{v:"A. demonstrate why we are not honest in communication", t:"证明我们在交流中为什么不诚实"}, {v:"B. explain how our body “talks”", t:"解释我们的身体如何“说话”"}, {v:"C. illustrate ways used by people in speaking", t:"说明人们说话的方式"}, {v:"D. show that understanding one’s speech is not an easy job", t:"表明理解一个人的讲话不是件容易的事"}], ans: "D" },
+                    { q: "9. The word “seesaw” (Line 1, Para. 3) probably means “______”.", t: "9. “seesaw”（第三段第1行）一词可能意味着“______”。", opts: [{v:"A. communication", t:"交流/沟通"}, {v:"B. purpose", t:"目的"}, {v:"C. understanding", t:"理解"}, {v:"D. friendship", t:"友谊"}], ans: "A" },
+                    { q: "10. According to the passage, our failure to give proper responses to the speaker is probably because ______.", t: "10. 根据文章，我们未能对演讲者做出适当的回应可能是因为______。", opts: [{v:"A. we misunderstand what he says", t:"我们误解了他说的"}, {v:"B. we don’t like the speaker", t:"我们不喜欢演讲者"}, {v:"C. he speaks in a distorted way", t:"他说话方式扭曲"}, {v:"D. he speaks in a different language", t:"他说的是不同的语言"}], ans: "A" }
                 ]
             }
         ],
-        // BOOK 2: 阅读教程 (Reading) - 修正版
+        // BOOK 2: 阅读教程 (Reading)
         book2: [
             {
                 unit: "Unit 1: Adversities and Courage",
@@ -417,8 +359,8 @@
                     { q: "4. According to the author, what would happen if each human being were stricken blind and deaf for a few days at some time during his early adult life?", t: "4. 根据作者，如果每个人在成年早期失明失聪几天会发生什么？", opts: [{v:"A. They could not see or hear anything forever.", t:"他们将永远看不见听不见。"}, {v:"B. They would feel very sad.", t:"他们会感到非常悲伤。"}, {v:"C. They would learn to better appreciate the joys of sight as well as sound.", t:"他们会学会更好地欣赏视听之乐。"}, {v:"D. They couldn’t live as well as before.", t:"他们不能像以前那样生活。"}], ans: "C" },
                     { q: "5. According to the text, as human beings, we ______.", t: "5. 根据文章，作为人类，我们______。", opts: [{v:"A. appreciate much of what we have", t:"非常珍惜我们所拥有的"}, {v:"B. seldom expect what we don’t have", t:"很少期待我们没有的"}, {v:"C. fully use what we have and seldom desire what we don’t have", t:"充分利用我们拥有的，很少渴望没有的"}, {v:"D. value little what we have and desire what we don’t have", t:"不珍惜拥有的，却渴望没有的"}], ans: "D" },
                     { q: "6. What had been the dream cherished by Rick?", t: "6. Rick珍视的梦想是什么？", opts: [{v:"A. A master’s degree in science, math or engineering.", t:"科学、数学或工程学的硕士学位。"}, {v:"B. A good number of hours as a pilot.", t:"作为飞行员的大量飞行时间。"}, {v:"C. Being an astronaut.", t:"成为一名宇航员。"}, {v:"D. Being able to participate in a US-British test pilot exchange program.", t:"能够参加美英试飞员交换项目。"}], ans: "C" },
-                    { q: "7. Which of the following statements is TRUE with regard to Rick’s pursuit of his dream?", t: "7. 关于Rick追求梦想，下列哪项陈述是正确的？", opts: [{v:"A. Rick was chosen for the US-British test pilot exchange program after applying for four times.", t:"Rick申请四次后被选中参加美英试飞员交换项目。"}, {v:"B. Rick received hard NASA training in the English countryside.", t:"Rick在英国乡村接受了艰苦的NASA训练。"}, {v:"C. Rick achieved his goal as he became the pilot of the Discovery.", t:"Rick成为发现号飞行员实现了目标。"}, {v:"D. Rick joined the Air Force after graduation and his dream finally came true.", t:"Rick毕业后加入空军，梦想终于成真。"}], ans: "C" },
-                    { q: "8. According to the author, the sweet memories of the family time include all the following EXCEPT ______.", t: "8. 根据作者，家庭时光的甜蜜回忆包括以下所有，除了______。", opts: [{v:"A. the happy moments they had in the English countryside", t:"他们在英国乡村度过的快乐时光"}, {v:"B. Rick’s devotion to the family", t:"Rick对家庭的奉献"}, {v:"C. the sweet music they listened to", t:"他们听过的甜美音乐"}, {v:"D. the laughter of joy in the family", t:"家里的欢声笑语"}], ans: "D" },
+                    { q: "7. Which of the following statements is TRUE with regard to Rick’s pursuit of his dream?", t: "7. 关于Rick追求梦想，下列哪项陈述是正确的？", opts: [{v:"A. Rick was chosen for the US-British test pilot exchange program after applying for four times.", t:"Rick申请四次后被选中参加美英试飞员交换项目。"}, {v:"B. Rick received hard NASA training in the English countryside.", t:"Rick在英国乡村接受了艰苦的NASA训练。"}, {v:"C. Rick achieved his goal as he became the pilot of the Discovery.", t:"Rick成为发现号飞行员实现了目标。"}, {v:"D. Rick joined the Air Force after graduation and his dream finally came true.", t:"Rick毕业后加入空军，梦想终于成真。"}], ans: "D" },
+                    { q: "8. According to the author, the sweet memories of the family time include all the following EXCEPT ______.", t: "8. 根据作者，家庭时光的甜蜜回忆包括以下所有，除了______。", opts: [{v:"A. the happy moments they had in the English countryside", t:"他们在英国乡村度过的快乐时光"}, {v:"B. Rick’s devotion to the family", t:"Rick对家庭的奉献"}, {v:"C. the sweet music they listened to", t:"他们听过的甜美音乐"}, {v:"D. the laughter of joy in the family", t:"家里的欢声笑语"}], ans: "A" },
                     { q: "9. Which of the following statements is TRUE?", t: "9. 下列哪项陈述是正确的？", opts: [{v:"A. Challenger exploded shortly after the Discovery mission.", t:"挑战者号在发现号任务后不久爆炸。"}, {v:"B. Rick had been the commander of the Discovery, Challenger and Columbia successively.", t:"Rick曾相继担任发现号、挑战者号和哥伦比亚号的指挥官。"}, {v:"C. Rick left when the space shuttle Challenger exploded.", t:"挑战者号航天飞机爆炸时Rick离开了。"}, {v:"D. Rick had had one successful shuttle mission before Columbia exploded.", t:"在哥伦比亚号爆炸前，Rick有一次成功的航天飞机任务。"}], ans: "D" },
                     { q: "10. What would the author say about that which helped her through the bereavement?", t: "10. 作者会说什么帮助她度过了丧亲之痛？", opts: [{v:"A. Time heals everything.", t:"时间治愈一切。"}, {v:"B. The discharge of her grieves to a sympathetic listener unburdens her.", t:"向同情的倾听者倾诉悲伤减轻了她的负担。"}, {v:"C. The comforts from her lover sustain her.", t:"爱人的安慰支撑着她。"}, {v:"D. Love is the source of her inner strength.", t:"爱是她内在力量的源泉。"}], ans: "D" }
                 ]
@@ -428,14 +370,14 @@
                 qs: [
                     { q: "1. Which of the following statements is TRUE according to the text?", t: "1. 根据文章，下列哪项是正确的？", opts: [{v:"A. The desire to keep up with friends or fashion explains the shopping compulsion.", t:"跟上朋友或时尚的欲望解释了购物强迫症。"}, {v:"B. For those shopping addicts, the greatest pleasure comes from juggling accounts and bills and lying about the amount of shopping done and the amount of money spent.", t:"对于购物成瘾者，最大的乐趣来自篡改账目账单和撒谎。"}, {v:"C. The seriousness of shopaholism has been ignored or underestimated even today.", t:"即使在今天，购物狂的严重性也被忽视或低估了。"}, {v:"D. Most women vulnerable to shopping compulsion suffer from emotional problems.", t:"大多数易患购物强迫症的女性都有情感问题。"}], ans: "D" },
                     { q: "2. Which of the following statements is NOT the contributing factor for shopaholism?", t: "2. 下列哪项不是购物狂的成因？", opts: [{v:"A. The easy availability of the credit.", t:"信贷的容易获得。"}, {v:"B. The persuasive power of advertisements.", t:"广告的说服力。"}, {v:"C. Psychological and emotional problems.", t:"心理和情感问题。"}, {v:"D. Alcoholic drinks.", t:"酒精饮料。"}], ans: "D" },
-                    { q: "3. According to the text, which of the following is NOT among the negative effects of compulsive shopping?", t: "3. 根据文章，下列哪项不是强迫性购物的负面影响？", opts: [{v:"A. Financial difficulties.", t:"经济困难。"}, {v:"B. Depression.", t:"抑郁。"}, {v:"C. Troubles at home.", t:"家庭麻烦。"}, {v:"D. A distorted sense of the self.", t:"扭曲的自我认知。"}], ans: "C" },
+                    { q: "3. According to the text, which of the following is NOT among the negative effects of compulsive shopping?", t: "3. 根据文章，下列哪项不是强迫性购物的负面影响？", opts: [{v:"A. Financial difficulties.", t:"经济困难。"}, {v:"B. Depression.", t:"抑郁。"}, {v:"C. Troubles at home.", t:"家庭麻烦。"}, {v:"D. A distorted sense of the self.", t:"扭曲的自我认知。"}], ans: "D" },
                     { q: "4. Which one is the best illustration of the vicious cycle of compulsive spending?", t: "4. 哪一个最好地说明了强迫性消费的恶性循环？", opts: [{v:"A. Emotional distress → A sense of relief → Compulsive shopping disorder → Being susceptible to advertising → Crazy shopping → Increasing debt.", t:"情绪困扰→解脱感→强迫购物障碍→易受广告影响→疯狂购物→债务增加。"}, {v:"B. Depression → An impulse for crazy shopping → A letdown → Guilt/stress → Depression.", t:"抑郁→疯狂购物的冲动→失落→内疚/压力→抑郁。"}, {v:"C. Compulsive shopping → Depression → Emotional distress → An impulse for crazy shopping.", t:"强迫购物→抑郁→情绪困扰→疯狂购物冲动。"}, {v:"D. Depression → An impulse for crazy shopping → Being susceptible to advertising → Wasted money/increasing debt.", t:"抑郁→疯狂购物冲动→易受广告影响→浪费金钱/债务增加。"}], ans: "B" },
                     { q: "5. As to the treatment for shopaholism, the author believes that ______. ", t: "5. 关于购物狂的治疗，作者认为______。", opts: [{v:"A. antidepressant drugs can effectively cure the shopaholics of the addiction", t:"抗抑郁药物可以有效治愈购物狂的成瘾"}, {v:"B. compulsive shoppers can consult the psychological professionals to help rid themselves of the compulsion", t:"强迫性购物者可以咨询心理专业人士来帮助摆脱强迫"}, {v:"C. self-discipline and control of the purchasing impulse is the only solution to the problem", t:"自律和控制购买冲动是解决问题的唯一方法"}, {v:"D. involvement in alternative activities such as gambling may relieve the addicts of the depression and is thus helpful", t:"参与赌博等替代活动可能会缓解成瘾者的抑郁，因此是有帮助的"}], ans: "B" },
                     { q: "6. According to the psychologists, a compulsive spender is one who spends large amounts of money ______. ", t: "6. 根据心理学家，强迫性消费者是指花费大量金钱______的人。", opts: [{v:"A. and takes great pleasure from what he or she buys", t:"并从购买的东西中获得巨大快乐"}, {v:"B. in order to satisfy his or her basic needs in life", t:"为了满足生活的基本需求"}, {v:"C. just to meet his or her strong psychological need", t:"仅仅是为了满足强烈的心理需求"}, {v:"D. and feels he or she is cheated", t:"并感觉自己被骗了"}], ans: "C" },
-                    { q: "7. According to the author, compulsive bargain hunters are in constant search of the lowest possible prices ______. ", t: "7. 根据作者，强迫性讨价还价者不断寻找最低价格是______。", opts: [{v:"A. because they want to save money to help their budgets", t:"因为他们想省钱来帮助预算"}, {v:"B. because they can openly boast of their triumph over others in getting things for less", t:"因为他们可以公开吹嘘自己以更低价格买到东西的胜利"}, {v:"C. and will not have money problems if they can keep to their budget", t:"如果能遵守预算就不会有钱的问题"}, {v:"D. but they often admit they feel satisfied if they can get things for less money than others", t:"但他们通常承认如果能比别人花更少的钱买到东西会感到满足"}], ans: "D" },
+                    { q: "7. According to the author, compulsive bargain hunters are in constant search of the lowest possible prices ______. ", t: "7. 根据作者，强迫性讨价还价者不断寻找最低价格是______。", opts: [{v:"A. because they want to save money to help their budgets", t:"因为他们想省钱来帮助预算"}, {v:"B. because they can openly boast of their triumph over others in getting things for less", t:"因为他们可以公开吹嘘自己以更低价格买到东西的胜利"}, {v:"C. and will not have money problems if they can keep to their budget", t:"如果能遵守预算就不会有钱的问题"}, {v:"D. but they often admit they feel satisfied if they can get things for less money than others", t:"但他们通常承认如果能比别人花更少的钱买到东西会感到满足"}], ans: "B" },
                     { q: "8. Which of the following statements is TRUE according to the text?", t: "8. 根据文章，下列哪项陈述是正确的？", opts: [{v:"A. People spend money for exactly the same reason that they need to buy things.", t:"人们花钱的原因与他们需要买东西的原因完全相同。"}, {v:"B. Business people and advertisers can use the psychology of people’s spending habits to increase sales.", t:"商人和广告商可以利用人们消费习惯的心理来增加销售额。"}, {v:"C. Business people understand the psychology of compulsive buying better than scientists do.", t:"商人比科学家更了解强迫性购买的心理。"}, {v:"D. Compulsive bargain hunters do not have problems with money.", t:"强迫性讨价还价者没有钱的问题。"}], ans: "B" },
                     { q: "9. What is the text mainly about?", t: "9. 这篇文章主要是关于什么的？", opts: [{v:"A. The psychology of money-spending habits.", t:"花钱习惯的心理学。"}, {v:"B. The habits of compulsive spenders.", t:"强迫性消费者的习惯。"}, {v:"C. A special psychology of bargain hunting.", t:"讨价还价的特殊心理。"}, {v:"D. The use of the psychology of spending habits in business.", t:"消费习惯心理学在商业中的应用。"}], ans: "A" },
-                    { q: "10. From the text we may safely conclude that compulsive spenders or compulsive bargain hunters ______. ", t: "10. 从文中我们可以得出结论，强迫性消费者或强迫性讨价还价者______。", opts: [{v:"A. are really unreasonable", t:"真的是不理智的"}, {v:"B. need special treatment", t:"需要特殊治疗"}, {v:"C. are really beyond drugs", t:"真的是无药可救"}, {v:"D. can never get any help to solve their problems with money", t:"永远无法获得解决金钱问题的帮助"}], ans: "B" }
+                    { q: "10. From the text we may safely conclude that compulsive spenders or compulsive bargain hunters ______. ", t: "10. 从文中我们可以得出结论，强迫性消费者或强迫性讨价还价者______。", opts: [{v:"A. are really unreasonable", t:"真的是不理智的"}, {v:"B. need special treatment", t:"需要特殊治疗"}, {v:"C. are really beyond drugs", t:"真的是无药可救"}, {v:"D. can never get any help to solve their problems with money", t:"永远无法获得解决金钱问题的帮助"}], ans: "A" }
                 ]
             },
             {
@@ -450,13 +392,13 @@
                     { q: "7. Which of the following is TRUE according to Paragraph 2?", t: "7. 根据第二段，下列哪项是正确的？", opts: [{v:"A. If we don’t reduce our greenhouse gas emissions, the entire world will come to an end soon.", t:"如果我们不减少温室气体排放，整个世界很快就会终结。"}, {v:"B. Climate patterns has changed since the emissions of greenhouse gases increased drastically during the past decades.", t:"自过去几十年温室气体排放剧增以来，气候模式已经改变。"}, {v:"C. Human beings will face the possible threats of a world war, a giant asteroid, an incurable plague or global warming.", t:"人类将面临世界大战、巨型小行星、不治之症或全球变暖的潜在威胁。"}, {v:"D. Wastes from factories and emissions from cars are the common causes of global warming.", t:"工厂废物和汽车排放是全球变暖的常见原因。"}], ans: "D" },
                     { q: "8. According to the text, which of the following is NOT the reason why the concentration of greenhouse gases in the atmosphere increased?", t: "8. 根据文章，下列哪项不是大气中温室气体浓度增加的原因？", opts: [{v:"A. Our factories, power plants, and cars keep emitting greenhouse gases such as carbon dioxide.", t:"我们的工厂、发电厂和汽车不断排放二氧化碳等温室气体。"}, {v:"B. Dealing with garbage produces large amounts of methane.", t:"处理垃圾产生大量甲烷。"}, {v:"C. Plenty of the greenhouse gases are released into the air when we fertilize our crops.", t:"当我们给庄稼施肥时，大量温室气体释放到空气中。"}, {v:"D. Cattle on the earth have been bred with methane — a kind of greenhouse gases — for nearly a century.", t:"地球上的牛已经被注入甲烷——一种温室气体——近一个世纪了（注：原文意为牛产生甲烷，而非被注入）。"}], ans: "D" },
                     { q: "9. Which of the following facts can prove that the surface temperature of the earth has increased greatly according to the text?", t: "9. 根据文章，下列哪项事实可以证明地球表面温度大幅升高？", opts: [{v:"A. During the summer days, the temperature on land surface areas is recorded much higher than that of the ocean.", t:"在夏日，陆地表面记录的温度远高于海洋。"}, {v:"B. The hot days are becoming so much more than the cool days.", t:"热天变得比凉爽天多得多。"}, {v:"C. The continental glaciers over the world are getting smaller than before.", t:"世界各地的大陆冰川正变得比以前小。"}, {v:"D. It’s easier for the ocean surface than for land surface to increase in temperature in the summer.", t:"夏天海面比陆地表面更容易升温。"}], ans: "C" },
-                    { q: "10. Which of the followings is NOT mentioned as the author’s suggestion of slowing global warming?", t: "10. 下列哪项未被提及作为作者减缓全球变暖的建议？", opts: [{v:"A. We should use technologies to reduce the consumption of heat-trapping gases.", t:"我们应该使用技术来减少吸热气体的消耗。"}, {v:"B. We should make policies to fight against global warming in the long run such as using clean vehicles and protecting forests.", t:"我们应该制定长期对抗全球变暖的政策，如使用清洁车辆和保护森林。"}, {v:"C. Individuals, organizations and governments should get together in a team effort to combat global warming.", t:"个人、组织和政府应团结一致，共同对抗全球变暖。"}, {v:"D. We should make a clear and careful plan on how to stop people using fossil fuels.", t:"我们应该制定一个清晰仔细的计划，停止人们使用化石燃料。"}], ans: "D" }
+                    { q: "10. Which of the followings is NOT mentioned as the author’s suggestion of slowing global warming?", t: "10. 下列哪项未被提及作为作者减缓全球变暖的建议？", opts: [{v:"A. We should use technologies to reduce the consumption of heat-trapping gases.", t:"我们应该使用技术来减少吸热气体的消耗。"}, {v:"B. We should make policies to fight against global warming in the long run such as using clean vehicles and protecting forests.", t:"我们应该制定长期对抗全球变暖的政策，如使用清洁车辆和保护森林。"}, {v:"C. Individuals, organizations and governments should get together in a team effort to combat global warming.", t:"个人、组织和政府应团结一致，共同对抗全球变暖。"}, {v:"D. We should make a clear and careful plan on how to stop people using fossil fuels.", t:"我们应该制定一个清晰仔细的计划，停止人们使用化石燃料。"}], ans: "A" }
                 ]
             },
             {
                 unit: "Unit 4: Leadership",
                 qs: [
-                    { q: "1. What do we learn from the fourth paragraph?", t: "1. 我们从第四段学到了什么？", opts: [{v:"A. A leader must look to be special or different.", t:"领袖必须看起来特别或与众不同。"}, {v:"B. tells people what they want to hear", t:"告诉人们他们想听的话"}, {v:"C. Most leaders look ordinary.", t:"大多数领袖看起来很普通。"}, {v:"D. A president should have an unforgettable figure.", t:"总统应该有一个令人难忘的身材。"}], ans: "B" },
+                    { q: "1. What do we learn from the fourth paragraph?", t: "1. 我们从第四段学到了什么？", opts: [{v:"A. A leader must look to be special or different.", t:"领袖必须看起来特别或与众不同。"}, {v:"B. Leaders don’t have to be tall.", t:"领袖不一定要高大。"}, {v:"C. Most leaders look ordinary.", t:"大多数领袖看起来很普通。"}, {v:"D. A president should have an unforgettable figure.", t:"总统应该有一个令人难忘的身材。"}], ans: "A" },
                     { q: "2. Which of the following statements can be inferred from Paragraph 4?", t: "2. 下列哪项陈述可以从第四段推断出来？", opts: [{v:"A. President Ford looked ordinary.", t:"福特总统看起来很普通。"}, {v:"B. President Ford had an unusual face.", t:"福特总统有一张不寻常的脸。"}, {v:"C. Like most leaders, President Ford looked a little different.", t:"像大多数领袖一样，福特总统看起来有点不同。"}, {v:"D. President Ford was a successful leader because of his special appearance.", t:"福特总统因其特殊外貌而成为成功的领袖。"}], ans: "A" },
                     { q: "3. Which of the following is NOT the reason why Roosevelt was a good leader?", t: "3. 下列哪项不是罗斯福成为好领袖的原因？", opts: [{v:"A. He gave a good, hearty, belly laugh.", t:"他会发出爽朗、衷心的大笑。"}, {v:"B. He offered understandable solutions.", t:"他提供了可理解的解决方案。"}, {v:"C. He had easy manner and apparent affability.", t:"他举止从容，和蔼可亲。"}, {v:"D. By overcoming polio, he showed that he was different from ordinary men.", t:"通过克服小儿麻痹症，他表明自己与普通人不同。"}], ans: "C" },
                     { q: "4. According to the text, a leader ______. ", t: "4. 根据文章，领袖______。", opts: [{v:"A. usually tries to appeal to people", t:"通常试图吸引民众"}, {v:"B. tells people what they want to hear", t:"告诉人们他们想听的话"}, {v:"C. encourages us to think in a new way", t:"鼓励我们以新的方式思考"}, {v:"D. tells people what is right and what is wrong", t:"告诉人们什么是对的，什么是错的"}], ans: "A" },
@@ -467,7 +409,7 @@
                 unit: "Unit 5: Intercultural Communication",
                 qs: [
                     { q: "1. Which of the following statements about a multicultural person is TRUE?", t: "1. 关于多元文化人，下列哪项陈述是正确的？", opts: [{v:"A. A multicultural person can explain the advantages of a product to foreign clients.", t:"多元文化人可以向外国客户解释产品的优势。"}, {v:"B. A multicultural person should be fluent in several languages.", t:"多元文化人应该流利掌握几种语言。"}, {v:"C. A multicultural person should have been to many countries in his life.", t:"多元文化人一生中应该去过很多国家。"}, {v:"D. A multicultural person should firmly believe that all cultures are equally important.", t:"多元文化人应该坚信所有文化都同等重要。"}], ans: "D" },
-                    { q: "2. What can we learn from the third paragraph?", t: "2. 我们从第三段可以学到什么？", opts: [{v:"A. All foreigners are arrogant about their own culture.", t:"所有外国人都对自己的文化傲慢。"}, {v:"B. Most people are aware that they are arrogantly monocultural and try to hide it.", t:"大多数人意识到自己傲慢地持有单一文化并试图掩盖。"}, {v:"C. Monocultural salespersons have great difficulty motivating foreign customers.", t:"单一文化的销售人员很难激励外国客户。"}, {v:"D. Foreign customers have cultural prejudice and set up cultural barriers for salespeople.", t:"外国客户有文化偏见，为销售人员设置文化障碍。"}], ans: "D" },
+                    { q: "2. What can we learn from the third paragraph?", t: "2. 我们从第三段可以学到什么？", opts: [{v:"A. All foreigners are arrogant about their own culture.", t:"所有外国人都对自己的文化傲慢。"}, {v:"B. Most people are aware that they are arrogantly monocultural and try to hide it.", t:"大多数人意识到自己傲慢地持有单一文化并试图掩盖。"}, {v:"C. Monocultural salespersons have great difficulty motivating foreign customers.", t:"单一文化的销售人员很难激励外国客户。"}, {v:"D. Foreign customers have cultural prejudice and set up cultural barriers for salespeople.", t:"外国客户有文化偏见，为销售人员设置文化障碍。"}], ans: "C" },
                     { q: "3. What does the author think is the most important quality for the candidate for a new Pan-European sales position?", t: "3. 作者认为泛欧销售新职位的候选人最重要的品质是什么？", opts: [{v:"A. The candidate should be fluent in English, German and French.", t:"候选人应流利掌握英语、德语和法语。"}, {v:"B. The candidate should have rich experience in relevant fields.", t:"候选人应在相关领域有丰富经验。"}, {v:"C. The candidate should have a happy childhood.", t:"候选人应有一个快乐的童年。"}, {v:"D. The candidate should be multicultural and able to communicate in one major European language.", t:"候选人应具有多元文化背景，并能用一种主要欧洲语言交流。"}], ans: "D" },
                     { q: "4. The one who can become a successful international salesperson is ______. ", t: "4. 能成为成功国际销售人员的是______。", opts: [{v:"A. a salesperson who has traveled to most of the countries in the world", t:"去过世界上大多数国家的销售员"}, {v:"B. a multilingual person who can explain the features of the products to foreign customers", t:"能向外国客户解释产品特性的多语言者"}, {v:"C. a multicultural person who can gain acceptance from foreign customers", t:"能获得外国客户接受的多元文化者"}, {v:"D. a proven American salesperson who is expected to sell products in Britain", t:"被期望在英国销售产品的资深美国销售员"}], ans: "C" },
                     { q: "5. What should a multicultural person do to succeed according to the author?", t: "5. 根据作者，多元文化人应该怎么做才能成功？", opts: [{v:"A. He must know how to shake hands or bow with foreign clients.", t:"他必须知道如何与外国客户握手或鞠躬。"}, {v:"B. He can forget his pride and learn the true spirit of a new culture.", t:"他能忘记骄傲，学习新文化的真正精神。"}, {v:"C. He is ready to learn about another culture intellectually.", t:"他准备理智地学习另一种文化。"}, {v:"D. He can easily notice cultural differences and adapt to it when traveling aboard.", t:"出国旅行时他能轻易注意到文化差异并适应。"}], ans: "B" },
@@ -479,7 +421,7 @@
                 ]
             }
         ],
-        // BOOK 3: 听力题库 (Listening)
+        // BOOK 3: 听力题库 (Listening) - 全部更新为新文档内容
         book3: [
             {
                 unit: "Unit 1: Listening",
@@ -602,7 +544,7 @@
             html += `<div class="unit-block">
                         <div class="unit-title">${unit.unit}</div>`;
             
-            // Handle structure variations
+            // Handle different structures
             if (unit.sections) {
                 unit.sections.forEach((sec, sIdx) => {
                     html += `<div class="section-header">${sec.name}</div>`;
@@ -657,7 +599,7 @@
             el.classList.add('correct');
         } else {
             el.classList.add('wrong');
-            // Auto show correct answer if wrong
+            // Auto show correct
             const btns = Array.from(parent.children);
             const correctBtn = btns.find(b => b.innerText.trim().charAt(0).toLowerCase() === correct);
             if (correctBtn) correctBtn.classList.add('correct');
@@ -693,11 +635,13 @@
         
         const content = document.getElementById('content-area').cloneNode(true);
         
+        // Clean up for export
         content.querySelectorAll('*').forEach(el => {
             el.removeAttribute('onclick');
             el.classList.remove('correct', 'wrong');
         });
 
+        // Force show hidden elements
         content.querySelectorAll('.q-trans, .opt-trans, .answer-key').forEach(el => {
             el.style.display = 'block';
         });
@@ -714,6 +658,7 @@
         document.body.removeChild(fileDownload);
     }
 
+    // 初始化
     init();
 
 </script>
